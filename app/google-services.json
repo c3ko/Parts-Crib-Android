@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "154343080345",
+    "firebase_url": "https://partscrib-2fe52.firebaseio.com",
+    "project_id": "partscrib-2fe52",
+    "storage_bucket": "partscrib-2fe52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154343080345:android:d5306d81ab58925be7d308",
+        "android_client_info": {
+          "package_name": "com.partscrib.partscribmanagementsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154343080345-2hkira3t1c40ousj0i14e6jjf7i8m4nu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVSKkzZNVFofMbZ2OrCTF-bamQPvIR7Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154343080345-2hkira3t1c40ousj0i14e6jjf7i8m4nu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
