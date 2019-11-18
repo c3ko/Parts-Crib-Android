@@ -1,24 +1,23 @@
-package com.partscrib.partscribmanagementsystem;
+package com.partscrib.partscribmanagementsystem.ui.main;
 
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
-public class ForgottenPasswordActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+import com.partscrib.partscribmanagementsystem.R;
+
+public class SettingsActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-
-        setContentView(R.layout.activity_forgotten_password);
+        setContentView(R.layout.activity_settings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,11 +30,6 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    public void sendRecoveryEmail(View v){
-        //String email =
-        //mAuth.sendPasswordResetEmail()
     }
 
 }

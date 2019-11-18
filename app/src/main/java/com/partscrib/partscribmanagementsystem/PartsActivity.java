@@ -17,6 +17,7 @@ public class PartsActivity extends AppCompatActivity {
     private TextView partAvailability;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parts);
         Toolbar toolbar = findViewById(R.id.toolbar);
