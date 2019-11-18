@@ -81,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(getApplicationContext(), "Account Successfully created.",
                                         Toast.LENGTH_LONG).show();
-                                Log.d("Register", "User registration was succesful");
+                                Log.d("Register", "User registration was successful");
                                 //finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Registration Failed",

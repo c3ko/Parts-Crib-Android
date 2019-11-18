@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
         <activity
+            android:name=".ForgottenPasswordActivity"
+            android:label="@string/title_activity_forgotten_password"
+            android:parentActivityName=".Login"
+            android:theme="@style/AppTheme.Launcher.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.partscrib.partscribmanagementsystem.Login" />
+        </activity>
+        <activity
             android:name=".RequestsActivity"
             android:label="@string/title_activity_request"
             android:parentActivityName=".HomeActivity"
@@ -26,7 +35,8 @@
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login"
+        <activity
+            android:name=".Login"
             android:theme="@style/AppTheme.Launcher.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
