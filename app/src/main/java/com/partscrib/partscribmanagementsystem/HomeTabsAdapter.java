@@ -5,7 +5,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.partscrib.partscribmanagementsystem.ui.main.AccountFragment;
+import com.partscrib.partscribmanagementsystem.ui.main.HelpFragment;
 import com.partscrib.partscribmanagementsystem.ui.main.PartsFragment;
+import com.partscrib.partscribmanagementsystem.ui.main.RequestsFragment;
 
 public class HomeTabsAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 4;
@@ -26,9 +29,17 @@ public class HomeTabsAdapter extends FragmentPagerAdapter {
             case 0:
                 PartsFragment parts = new PartsFragment();
                 return parts;
-
+            case 1:
+                RequestsFragment requests = new RequestsFragment();
+                return requests;
+            case 2:
+                AccountFragment accounts = new AccountFragment();
+                return accounts;
+            case 3:
+                HelpFragment help = new HelpFragment();
+                return help;
             default:
-                return null;
+                return new PartsFragment();
         }
     }
 }

@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.EditText;
 
 public class ForgottenPasswordActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private EditText emailText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +36,11 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
     }
 
     public void sendRecoveryEmail(View v){
-        //String email =
-        //mAuth.sendPasswordResetEmail()
+        emailText = findViewById(R.id.recover_email);
+        String email = emailText.getText().toString();
+        mAuth.sendPasswordResetEmail(email);
+
+
     }
 
 }

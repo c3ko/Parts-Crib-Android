@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.partscrib.partscribmanagementsystem.R;
 import com.partscrib.partscribmanagementsystem.ui.main.RequestsFragment.OnListFragmentInteractionListener;
 import com.partscrib.partscribmanagementsystem.ui.main.dummy.DummyContent.DummyItem;
 

@@ -1,5 +1,6 @@
 package com.partscrib.partscribmanagementsystem;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.View;
@@ -12,10 +13,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import com.partscrib.partscribmanagementsystem.ui.main.AccountFragment;
+import com.partscrib.partscribmanagementsystem.ui.main.PartsFragment;
+import com.partscrib.partscribmanagementsystem.ui.main.RequestsFragment;
+import com.partscrib.partscribmanagementsystem.ui.main.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PartsFragment.OnListFragmentInteractionListener, RequestsFragment.OnListFragmentInteractionListener,
 
-    FragmentPagerAdapter adapterViewPager;
+        AccountFragment.OnFragmentInteractionListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +31,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-        //adapterViewPager = new HomeTabsAdapter(getSupportFragmentManager());
-        //viewPager.setAdapter(adapterViewPager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        FragmentPagerAdapter adapterViewPager = new HomeTabsAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(adapterViewPager);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        //tabLayout
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,5 +73,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }
