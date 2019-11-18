@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,9 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText password;
     private EditText password2;
     private EditText email;
-
-
-
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +36,12 @@ public class SignUpActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        findViewsFromLayout();
+
+
+
     }
 
     private void findViewsFromLayout(){
@@ -45,10 +50,10 @@ public class SignUpActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         password2 = findViewById(R.id.password2);
-
+        registerButton = findViewById(R.id.login);
     }
 
-    public void beginRegistration(View view){
+    public void beginRegistration(View v){
 
 
         String newEmail = String.valueOf(email.getText());
@@ -66,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
 
-        mAuth = FirebaseAuth.getInstance();
+
 
         mAuth.createUserWithEmailAndPassword(newEmail, newPassword1)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -76,12 +81,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(getApplicationContext(), "Account Successfully created.",
                                         Toast.LENGTH_LONG).show();
-                                Log.d("Login", "User registration was succesful");
-                                finish();
+                                Log.d("Register", "User registration was succesful");
+                                //finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Registration Failed",
                                         Toast.LENGTH_LONG).show();
-                                Log.w("Login", "User registration failed");
+                                Log.w("Register", "User registration failed");
                             }
                     }
                 });
