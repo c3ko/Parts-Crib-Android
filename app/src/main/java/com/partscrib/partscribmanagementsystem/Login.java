@@ -25,12 +25,15 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
     }
+
 
 
     public void onLogin(View view){
 
-        mAuth = FirebaseAuth.getInstance();
+
 
         final Intent intent = new Intent(this, HomeActivity.class);
         emailField = (EditText) findViewById(R.id.email);
