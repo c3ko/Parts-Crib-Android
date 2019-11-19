@@ -19,7 +19,7 @@ import com.partscrib.partscribmanagementsystem.ui.main.PartsFragment;
 import com.partscrib.partscribmanagementsystem.ui.main.RequestsFragment;
 import com.partscrib.partscribmanagementsystem.ui.main.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity implements PartsFragment.OnListFragmentInteractionListener, RequestsFragment.OnListFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements PartsFragment.OnFragmentInteractionListener,
 
         AccountFragment.OnFragmentInteractionListener {
 
@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements PartsFragment.OnL
 
     }
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
-    }
+
 }
