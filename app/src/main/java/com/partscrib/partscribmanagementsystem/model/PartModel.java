@@ -2,11 +2,31 @@ package com.partscrib.partscribmanagementsystem.model;
 
 public class PartModel {
 
+    private String id;
     private String name;
     private String inPartsKit;
+    private String category;
 
-    public PartModel(String name, String inPartsKit) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public PartModel(String id, String name, String category, String inPartsKit) {
+        this.id = id;
         this.name = name;
+        this.category = category;
         this.inPartsKit = inPartsKit;
     }
 

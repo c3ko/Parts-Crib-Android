@@ -4,6 +4,8 @@ public class PartsRequestModel {
 
     private String partsReqId;
     private String partId;
+    private String quantity;
+    private String returnStatus;
 
     public PartsRequestModel(String partsReqId, String partId, String quantity, String returnStatus) {
         this.partsReqId = partsReqId;
@@ -44,6 +46,5 @@ public class PartsRequestModel {
         this.returnStatus = returnStatus;
     }
 
-    private String quantity;
-    private String returnStatus;
+
 }

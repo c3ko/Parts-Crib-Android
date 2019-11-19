@@ -9,4 +9,10 @@
     <string name="title_activity_forgotten_password">ForgottenPasswordActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_main2">MainActivity2</string>
+    <string name="hint_datepicker">Enter expected date (MM/DD/YYYY) of loan</string>
+    <string name="hint_timepicker">Enter expected time (HH:MM) of loan</string>
+    <string name="hint_time_length">Enter expected length of loan period in hours</string>
+    <string name="number_requests__made_label">Number of requests made:</string>
+    <string name="number_requests_out_label">Number of Outstanding requests:</string>
+    <string name="loan_standing_label">Loan Standing:</string>
 </resources>
