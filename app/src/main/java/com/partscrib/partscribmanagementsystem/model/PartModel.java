@@ -23,6 +23,9 @@ public class PartModel {
         this.category = category;
     }
 
+    public PartModel(){
+
+    }
     public PartModel(String id, String name, String category, String inPartsKit) {
         this.id = id;
         this.name = name;
