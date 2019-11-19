@@ -36,7 +36,6 @@ public class PartsFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private PlusOneButton mPlusOneButton;
 
     private Button partsListButton;
     private OnFragmentInteractionListener mListener;
@@ -92,7 +91,6 @@ public class PartsFragment extends Fragment implements View.OnClickListener {
         super.onResume();
 
         // Refresh the state of the +1 button each time the activity receives focus.
-        mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

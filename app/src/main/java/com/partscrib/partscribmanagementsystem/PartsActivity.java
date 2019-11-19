@@ -11,12 +11,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.partscrib.partscribmanagementsystem.model.PartAdapter;
 import com.partscrib.partscribmanagementsystem.model.PartModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.TextView;
@@ -28,8 +33,9 @@ public class PartsActivity extends AppCompatActivity {
 
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
+    private RecyclerView recyclerView;
     PartModel part;
-
+    PartAdapter mAdapter;
     private TextView partID;
     private TextView partName;
     private TextView partCategory;
@@ -57,6 +63,31 @@ public class PartsActivity extends AppCompatActivity {
         });
     };
 
+    private void processDataAdapter(){
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+/*
+       TODO 3: Obtain a handle to the object,
+               connect it to a layout manager,
+               and attach an adapter for the data to be displayed.
+*/
+
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // specify an adapter (see also next example)
+        // Pass the data list to the adapter
+        mAdapter = new PartAdapter(PartModel);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(mAdapter);
+    }
     private void findAllViews(){
         partID = findViewById(R.id.part_id);
         partName = findViewById(R.id.part_name);
