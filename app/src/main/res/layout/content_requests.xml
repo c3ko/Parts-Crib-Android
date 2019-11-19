@@ -8,4 +8,79 @@
     tools:context=".RequestsActivity"
     tools:showIn="@layout/activity_requests">
 
+
+    <EditText
+        android:id="@+id/EnterName"
+        android:layout_width="351dp"
+        android:layout_height="43dp"
+        android:hint="Enter your Full Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.191"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/humberID"
+        android:layout_width="202dp"
+        android:layout_height="43dp"
+        android:hint="Enter Student ID"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EnterName"
+        app:layout_constraintVertical_bias="0.057"
+        android:inputType="text" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="377dp"
+        android:layout_height="101dp"
+        app:layout_constraintBottom_toTopOf="@+id/EnterName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/request" />
+
+    <EditText
+        android:id="@+id/selectTime"
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Enter Pick-Up Time"
+        android:inputType="time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.994"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EnterName"
+        app:layout_constraintVertical_bias="0.213" />
+
+    <DatePicker
+        android:id="@+id/pickUp"
+        android:layout_width="313dp"
+        android:layout_height="262dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectTime" />
+
+    <EditText
+        android:id="@+id/loanTime"
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintBottom_toTopOf="@+id/pickUp"
+        app:layout_constraintEnd_toEndOf="@+id/selectTime"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/humberID"
+        app:layout_constraintVertical_bias="0.369"
+        android:hint="Loan Time (In Hours)
+"
+        android:autofillHints="" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
