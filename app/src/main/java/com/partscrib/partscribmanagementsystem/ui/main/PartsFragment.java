@@ -1,6 +1,7 @@
 package com.partscrib.partscribmanagementsystem.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,7 +10,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.partscrib.partscribmanagementsystem.PartsActivity;
 import com.partscrib.partscribmanagementsystem.R;
 import com.google.android.gms.plus.PlusOneButton;
 
@@ -21,7 +24,7 @@ import com.google.android.gms.plus.PlusOneButton;
  * Use the {@link PartsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PartsFragment extends Fragment {
+public class PartsFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +38,7 @@ public class PartsFragment extends Fragment {
     private String mParam2;
     private PlusOneButton mPlusOneButton;
 
+    private Button partsListButton;
     private OnFragmentInteractionListener mListener;
 
     public PartsFragment() {
@@ -66,8 +70,12 @@ public class PartsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
+    public void findAllViews(){
+        partsListButton = (Button) getActivity().findViewById(R.id.parts_list_button);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,6 +118,15 @@ public class PartsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == partsListButton.getId()){
+            Intent intent = new Intent(getActivity(), PartsActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**
