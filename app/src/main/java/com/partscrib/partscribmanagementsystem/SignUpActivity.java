@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Account Successfully created.",
                                         Toast.LENGTH_LONG).show();
                                 Log.d("Register", "User registration was successful");
-                                //finish();
+                                finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Registration Failed",
                                         Toast.LENGTH_LONG).show();
