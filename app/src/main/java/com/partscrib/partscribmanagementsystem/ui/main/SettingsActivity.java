@@ -1,34 +1,25 @@
-package com.partscrib.partscribmanagementsystem;
+package com.partscrib.partscribmanagementsystem.ui.main;
 
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.partscrib.partscribmanagementsystem.ui.main.MyPartsRecyclerViewAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
-import android.widget.TextView;
 
-public class PartsActivity extends AppCompatActivity {
+import com.partscrib.partscribmanagementsystem.R;
 
+public class SettingsActivity extends AppCompatActivity {
 
-
-    private TextView partName;
-    private TextView partAvailability;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parts);
+        setContentView(R.layout.activity_settings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,12 +29,7 @@ public class PartsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
-
-
-
 }
-
-

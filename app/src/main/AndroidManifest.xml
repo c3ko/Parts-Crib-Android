@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
         <activity
+            android:name=".ui.main.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.Launcher.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.partscrib.partscribmanagementsystem.MainActivity" />
+        </activity>
+        <activity
             android:name=".ForgottenPasswordActivity"
             android:label="@string/title_activity_forgotten_password"
             android:parentActivityName=".Login"
