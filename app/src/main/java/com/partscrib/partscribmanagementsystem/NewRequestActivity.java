@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -30,6 +31,7 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
     EditText datePickerText;
     EditText timePickerText;
     EditText timeLength;
+    Button submitButton;
 
     float hours_required;
     RequestModel requestData;
@@ -40,6 +42,7 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
         datePickerText = (EditText) findViewById(R.id.datePicker);
         timePickerText = (EditText) findViewById(R.id.timePicker);
         timeLength = (EditText) findViewById(R.id.timeLength);
+        submitButton = (Button) findViewById(R.id.submit_request_button);
 
         datePickerText.setOnClickListener(this);
         timePickerText.setOnClickListener(this);
@@ -90,6 +93,10 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
                         }
                     }, 0, 0, false);
             timePickerDialog.show();
+        }
+
+        else if (v == submitButton){
+
         }
     }
 

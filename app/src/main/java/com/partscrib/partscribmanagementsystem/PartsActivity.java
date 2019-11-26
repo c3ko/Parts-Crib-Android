@@ -40,6 +40,7 @@ public class PartsActivity extends AppCompatActivity {
     private TextView partName;
     private TextView partCategory;
     private TextView inPartsKit;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class PartsActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         // Pass the data list to the adapter
-        mAdapter = new PartAdapter(PartModel);
+        //mAdapter = new PartAdapter(PartModel.);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);

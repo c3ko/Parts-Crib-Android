@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
-
+    public static final String USER_NAME_MESSAGE = "com.partscrib.partscribmanagementsystem.USER_NAME";
     private FirebaseAuth mAuth;
     private EditText emailField;
     private EditText passwordField;
@@ -67,6 +67,15 @@ public class Login extends AppCompatActivity {
 
     public void startRegistration(View view){
         Intent intent = new Intent(this, SignUpActivity.class);
+        FirebaseUser user = mAuth.getCurrentUser();
+        intent.putExtra(USER_NAME_MESSAGE, user);
+
+        startActivity(intent);
+    }
+
+
+    public void startPasswordRecovery(View view){
+        Intent intent = new Intent(this, ForgottenPasswordActivity.class);
         startActivity(intent);
     }
 }

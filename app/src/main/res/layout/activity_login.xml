@@ -99,6 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_text" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_text"
+        android:onClick="startPasswordRecovery"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

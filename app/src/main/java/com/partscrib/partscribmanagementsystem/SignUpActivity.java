@@ -3,17 +3,21 @@ package com.partscrib.partscribmanagementsystem;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.partscrib.partscribmanagementsystem.model.UserDataModel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +27,9 @@ import android.widget.Toast;
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private EditText password;
-    private EditText password2;
-    private EditText email;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private EditText firstName, studentNumber, email, password, password2;
     private Button registerButton;
 
     @Override
@@ -44,15 +48,58 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    /*
+    * Should only be run after initial successful creation of user
+    *
+    * */
+
+    private void writeNewUserData(){
+        String uid = mAuth.getUid();
+        database = FirebaseDatabase.getInstance();
+        String path = "userdata/" + uid;
+
+
+        UserDataModel userData = buildUser(mAuth.getUid(), email.getText(),
+                studentNumber.getText(), firstName.getText());
+
+        myRef = database.getReference(path);
+        myRef.setValue(userData);
+                /*
+        myRef.push().setValue(userData).addOnSuccessListener(new OnSuccessListener<Void>(){
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("UserData", "Added new user: " + mAuth.getUid());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("UserData", "Writing to userdata failed");
+            }
+        });
+
+                 */
+    }
+
     private void findViewsFromLayout(){
 
-
+        firstName = findViewById(R.id.firstName);
+        studentNumber = findViewById(R.id.studentNumber);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         password2 = findViewById(R.id.password2);
         registerButton = findViewById(R.id.login);
     }
 
+    private UserDataModel buildUser(String userID, Editable email, Editable studentNumber, Editable firstName){
+
+        return new UserDataModel(userID,
+                String.valueOf(email),
+                String.valueOf(firstName),
+                String.valueOf(studentNumber),
+                null
+                );
+    }
     public void beginRegistration(View v){
 
 
@@ -82,6 +129,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Account Successfully created.",
                                         Toast.LENGTH_LONG).show();
                                 Log.d("Register", "User registration was successful");
+
+                                writeNewUserData();
                                 finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Registration Failed",

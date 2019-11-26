@@ -1,41 +1,26 @@
 package com.partscrib.partscribmanagementsystem.model;
 
-import java.util.ArrayList;
+
+import java.util.Map;
 
 public class RequestModel {
 
 
-    private String requestID;
+    private String requestID; // Generate this random 5 digit number
     private String userID;
     private String neededTimeStamp; //When is it needed
     private String requestTimeStamp; // How long it will be borrowed
-    private ArrayList<String> partsRequests; //List of partsRequestsID
     private String requestStatus;
+    private Map<String, PartRequest> parts;
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
+    public RequestModel(String requestID, String userID, String neededTimeStamp, String requestTimeStamp, String requestStatus, Map<String, PartRequest> parts) {
+        this.requestID = requestID;
         this.userID = userID;
-    }
-
-    public String getRequestStatus() {
-        return requestStatus;
-    }
-
-    public void setRequestStatus(String requestStatus) {
-        this.requestStatus = requestStatus;
-    }
-
-    public String getRequestTimeStamp() {
-        return requestTimeStamp;
-    }
-
-    public void setRequestTimeStamp(String requestTimeStamp) {
+        this.neededTimeStamp = neededTimeStamp;
         this.requestTimeStamp = requestTimeStamp;
+        this.requestStatus = requestStatus;
+        this.parts = parts;
     }
-
 
 
 
@@ -47,6 +32,14 @@ public class RequestModel {
         this.requestID = requestID;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public String getNeededTimeStamp() {
         return neededTimeStamp;
     }
@@ -55,22 +48,31 @@ public class RequestModel {
         this.neededTimeStamp = neededTimeStamp;
     }
 
-    public ArrayList<String> getPartsRequests() {
-        return partsRequests;
+    public String getRequestTimeStamp() {
+        return requestTimeStamp;
     }
 
-    public void setPartsRequests(ArrayList<String> partsRequests) {
-        this.partsRequests = partsRequests;
-    }
-
-
-
-    public RequestModel(String requestID, String userId, String requestTimeStamp, String neededTimeStamp, ArrayList<String> partsRequests, String requestStatus) {
-        this.requestID = requestID;
-        this.userID = userId;
+    public void setRequestTimeStamp(String requestTimeStamp) {
         this.requestTimeStamp = requestTimeStamp;
-        this.neededTimeStamp = neededTimeStamp;
-        this.partsRequests = partsRequests;
+    }
+
+    public String getRequestStatus() {
+        return requestStatus;
+    }
+
+    public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
     }
+
+    public Map<String, PartRequest> getParts() {
+        return parts;
+    }
+
+    public void setParts(Map<String, PartRequest> parts) {
+        this.parts = parts;
+    }
+
+
+
+
 }

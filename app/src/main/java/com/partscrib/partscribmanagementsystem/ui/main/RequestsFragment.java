@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,9 @@ import android.view.ViewGroup;
 
 import com.partscrib.partscribmanagementsystem.R;
 import com.google.android.gms.plus.PlusOneButton;
+import com.partscrib.partscribmanagementsystem.model.RequestAdapter;
+
+import static com.partscrib.partscribmanagementsystem.Login.USER_NAME_MESSAGE;
 
 /**
  * A fragment with a Google +1 button.
@@ -74,8 +80,17 @@ public class RequestsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        //Find the +1 button
-        mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.requests_recycler_view);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        String user = getActivity().getIntent().getStringExtra(USER_NAME_MESSAGE);
+
+        RequestAdapter mAdapter = new RequestAdapter();
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }
@@ -85,7 +100,6 @@ public class RequestsFragment extends Fragment {
         super.onResume();
 
         // Refresh the state of the +1 button each time the activity receives focus.
-        mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
