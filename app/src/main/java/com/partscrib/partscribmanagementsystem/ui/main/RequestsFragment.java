@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,18 +91,18 @@ public class RequestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-
+        final View view = inflater.inflate(R.layout.fragment_requests, container, false);
+        final FragmentActivity c = getActivity();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.requests_recycler_view);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(c);
 
         recyclerView.setLayoutManager(layoutManager);
 
         String user = getActivity().getIntent().getStringExtra(USER_NAME_MESSAGE);
 
         final List<RequestModel> requestList = new ArrayList<>();
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("userdata/" + user + "");
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

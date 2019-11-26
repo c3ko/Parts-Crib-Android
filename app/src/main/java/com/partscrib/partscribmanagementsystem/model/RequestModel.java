@@ -11,18 +11,29 @@ public class RequestModel {
     private String neededTimeStamp; //When is it needed
     private String requestTimeStamp; // How long it will be borrowed
     private String requestStatus;
-    private Map<String, PartRequest> parts;
+    private String pinCode;
+    private Map<String, PartRequestModel> parts;
 
-    public RequestModel(String requestID, String userID, String neededTimeStamp, String requestTimeStamp, String requestStatus, Map<String, PartRequest> parts) {
+    public RequestModel(String requestID, String userID, String neededTimeStamp, String requestTimeStamp, String requestStatus,
+                        Map<String, PartRequestModel> parts,
+                        String pinCode) {
         this.requestID = requestID;
         this.userID = userID;
         this.neededTimeStamp = neededTimeStamp;
         this.requestTimeStamp = requestTimeStamp;
         this.requestStatus = requestStatus;
         this.parts = parts;
+        this.pinCode = pinCode;
+
     }
 
+    public String getPinCode() {
+        return pinCode;
+    }
 
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
 
     public String getRequestID() {
         return requestID;
@@ -64,11 +75,11 @@ public class RequestModel {
         this.requestStatus = requestStatus;
     }
 
-    public Map<String, PartRequest> getParts() {
+    public Map<String, PartRequestModel> getParts() {
         return parts;
     }
 
-    public void setParts(Map<String, PartRequest> parts) {
+    public void setParts(Map<String, PartRequestModel> parts) {
         this.parts = parts;
     }
 
