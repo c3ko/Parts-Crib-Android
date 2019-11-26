@@ -17,6 +17,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
 
 
     private List<PartModel> partsList;
+
     public PartAdapter(List<PartModel> partsList){
         this.partsList = partsList;
     }

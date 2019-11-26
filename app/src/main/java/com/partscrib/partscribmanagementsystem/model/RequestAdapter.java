@@ -19,11 +19,11 @@ import java.util.Map;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
 
-    private Map<String, RequestModel> mRequests;
+    private List<RequestModel> mRequests;
 
     public TextView textview;
 
-    public RequestAdapter(Map<String,RequestModel> requests){
+    public RequestAdapter(List<RequestModel> requests){
         this.mRequests = requests;
     }
 

@@ -4,18 +4,30 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.partscrib.partscribmanagementsystem.R;
 import com.google.android.gms.plus.PlusOneButton;
 import com.partscrib.partscribmanagementsystem.model.RequestAdapter;
+import com.partscrib.partscribmanagementsystem.model.RequestModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.partscrib.partscribmanagementsystem.Login.USER_NAME_MESSAGE;
 
@@ -88,7 +100,39 @@ public class RequestsFragment extends Fragment {
 
         String user = getActivity().getIntent().getStringExtra(USER_NAME_MESSAGE);
 
-        RequestAdapter mAdapter = new RequestAdapter();
+        final List<RequestModel> requestList = new ArrayList<>();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                for (DataSnapshot requestSnapshot: dataSnapshot.getChildren()){
+                    RequestModel request = requestSnapshot.getValue(RequestModel.class);
+                    requestList.add(request);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("Request Snapshot", "Failed to retreive: " + databaseError.getMessage());
+            }
+        });
+
+        RequestAdapter mAdapter = new RequestAdapter(requestList);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
