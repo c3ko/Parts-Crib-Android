@@ -15,4 +15,7 @@
     <string name="number_requests__made_label">Number of requests made:</string>
     <string name="number_requests_out_label">Number of Outstanding requests:</string>
     <string name="loan_standing_label">Loan Standing:</string>
+    <string name="where_are_we_located">Where are we located?</string>
+    <string name="todo">TODO</string>
+    <string name="outstanding_items_to_be_returned">Outstanding items to be returned:</string>
 </resources>
