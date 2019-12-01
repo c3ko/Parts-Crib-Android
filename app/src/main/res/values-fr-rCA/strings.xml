@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Système de gestion de lit d\'enfant</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="hint_datepicker">Entrez la date prévue du prêt (MM / JJ / AAAA)</string>
+    <string name="hint_time_length">Entrez la durée prévue de la période de prêt en heures</string>
+    <string name="hint_timepicker">Entrez la durée prévue du prêt (HH: MM)</string>
+    <string name="loan_standing_label">Prêt Prêt:</string>
+    <string name="number_requests__made_label">Nombre de demandes faites:</string>
+    <string name="number_requests_out_label">Nombre de demandes en suspens:</string>
+    <string name="outstanding_items_to_be_returned">Éléments en suspens à retourner:</string>
+    <string name="title_activity_forgotten_password">Activité mot de passe oublié</string>
+    <string name="title_activity_home">AccueilActivité</string>
+    <string name="where_are_we_located">Où sommes-nous situés?</string>
+</resources>
