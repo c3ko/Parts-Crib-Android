@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.partscrib.partscribmanagementsystem.ui.main.AccountFragment;
 import com.partscrib.partscribmanagementsystem.ui.main.HelpFragment;
-import com.partscrib.partscribmanagementsystem.ui.main.HomeFragment;
+import com.partscrib.partscribmanagementsystem.ui.main.NewsFragment;
 import com.partscrib.partscribmanagementsystem.ui.main.RequestsFragment;
 
 public class HomeTabsAdapter extends FragmentPagerAdapter {
@@ -26,7 +26,7 @@ public class HomeTabsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position){
         switch (position){
             case 0:
-                HomeFragment parts = new HomeFragment();
+                NewsFragment parts = new NewsFragment();
                 return parts;
             case 1:
                 RequestsFragment requests = new RequestsFragment();
@@ -38,7 +38,7 @@ public class HomeTabsAdapter extends FragmentPagerAdapter {
                 HelpFragment help = new HelpFragment();
                 return help;
             default:
-                return new HomeFragment();
+                return new NewsFragment();
         }
     }
 }
