@@ -31,7 +31,7 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
     EditText datePickerText;
     EditText timePickerText;
     EditText timeLength;
-    Button submitButton;
+    FloatingActionButton addPartsButton;
 
     float hours_required;
     RequestModel requestData;
@@ -42,7 +42,7 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
         datePickerText = (EditText) findViewById(R.id.datePicker);
         timePickerText = (EditText) findViewById(R.id.timePicker);
         timeLength = (EditText) findViewById(R.id.timeLength);
-        submitButton = (Button) findViewById(R.id.submit_request_button);
+ //       submitButton = (Button) findViewById(R.id.submit_new_request_button);
 
         datePickerText.setOnClickListener(this);
         timePickerText.setOnClickListener(this);
@@ -50,14 +50,14 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+        //setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_request);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        addPartsButton = findViewById(R.id.add_new_part_button);
+        addPartsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -95,7 +95,7 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
             timePickerDialog.show();
         }
 
-        else if (v == submitButton){
+        else if (v == addPartsButton){
 
         }
     }

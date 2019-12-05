@@ -3,11 +3,10 @@ package com.partscrib.partscribmanagementsystem;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.partscrib.partscribmanagementsystem.ui.main.AccountFragment;
 import com.partscrib.partscribmanagementsystem.ui.main.HelpFragment;
-import com.partscrib.partscribmanagementsystem.ui.main.PartsFragment;
+import com.partscrib.partscribmanagementsystem.ui.main.HomeFragment;
 import com.partscrib.partscribmanagementsystem.ui.main.RequestsFragment;
 
 public class HomeTabsAdapter extends FragmentPagerAdapter {
@@ -27,7 +26,7 @@ public class HomeTabsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position){
         switch (position){
             case 0:
-                PartsFragment parts = new PartsFragment();
+                HomeFragment parts = new HomeFragment();
                 return parts;
             case 1:
                 RequestsFragment requests = new RequestsFragment();
@@ -39,7 +38,7 @@ public class HomeTabsAdapter extends FragmentPagerAdapter {
                 HelpFragment help = new HelpFragment();
                 return help;
             default:
-                return new PartsFragment();
+                return new HomeFragment();
         }
     }
 }

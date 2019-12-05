@@ -16,11 +16,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.partscrib.partscribmanagementsystem.ui.main.AccountFragment;
-import com.partscrib.partscribmanagementsystem.ui.main.PartsFragment;
-import com.partscrib.partscribmanagementsystem.ui.main.RequestsFragment;
-import com.partscrib.partscribmanagementsystem.ui.main.dummy.DummyContent;
+import com.partscrib.partscribmanagementsystem.ui.main.HomeFragment;
 
-public class MainActivity extends AppCompatActivity implements PartsFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener,
 
         AccountFragment.OnFragmentInteractionListener {
 

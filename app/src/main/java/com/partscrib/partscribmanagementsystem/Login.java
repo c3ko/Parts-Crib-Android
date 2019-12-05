@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -46,7 +47,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    //FirebaseUser user = mAuth.getCurrentUser();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    intent.putExtra(USER_NAME_MESSAGE, user.getUid());
+                    //Log.d("Sign in User:", user);
                     startActivity(intent);
 
                 }
@@ -67,8 +70,7 @@ public class Login extends AppCompatActivity {
 
     public void startRegistration(View view){
         Intent intent = new Intent(this, SignUpActivity.class);
-        FirebaseUser user = mAuth.getCurrentUser();
-        intent.putExtra(USER_NAME_MESSAGE, user);
+
 
         startActivity(intent);
     }

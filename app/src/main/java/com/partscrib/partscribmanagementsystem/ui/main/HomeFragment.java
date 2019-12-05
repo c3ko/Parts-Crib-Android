@@ -1,6 +1,5 @@
 package com.partscrib.partscribmanagementsystem.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,17 +13,16 @@ import android.widget.Button;
 
 import com.partscrib.partscribmanagementsystem.PartsActivity;
 import com.partscrib.partscribmanagementsystem.R;
-import com.google.android.gms.plus.PlusOneButton;
 
 /**
  * A fragment with a Google +1 button.
  * Activities that contain this fragment must implement the
- * {@link PartsFragment.OnFragmentInteractionListener} interface
+ * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PartsFragment#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PartsFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,7 +38,7 @@ public class PartsFragment extends Fragment implements View.OnClickListener {
     private Button partsListButton;
     private OnFragmentInteractionListener mListener;
 
-    public PartsFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -50,11 +48,11 @@ public class PartsFragment extends Fragment implements View.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PartsFragment.
+     * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PartsFragment newInstance(String param1, String param2) {
-        PartsFragment fragment = new PartsFragment();
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,13 +71,13 @@ public class PartsFragment extends Fragment implements View.OnClickListener {
     }
 
     public void findAllViews(){
-        partsListButton = (Button) getActivity().findViewById(R.id.parts_list_button);
+        //partsListButton = (Button) getActivity().findViewById(R.id.parts_list_button);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_parts, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Find the +1 button
 
