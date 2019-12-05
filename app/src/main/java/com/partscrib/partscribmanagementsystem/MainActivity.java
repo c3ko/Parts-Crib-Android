@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements PartsFragment.OnF
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent0 = new Intent(this, SettingScreen.class);
+            Intent intent0 = new Intent(this, SettingsActivity.class);
             startActivity(intent0);
             return true;
         }
