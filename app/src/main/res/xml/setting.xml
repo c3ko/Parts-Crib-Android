@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="pref_sync"
+        android:title="@string/sync_pref"
+        android:defaultValue="true" />
+
+    <EditTextPreference
+        android:defaultValue="@string/fui_email_field_name"
+        android:key="displayName"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/displayName" />
+//Other options can be added her/ will be added her according to collaborator's requests
+</PreferenceScreen>
