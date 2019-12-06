@@ -18,69 +18,80 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.partscrib.partscribmanagementsystem.R;
 
-public class HelpFragment extends Fragment implements OnMapReadyCallback {
+import java.util.Map;
 
-    GoogleMap mMap;
+
+public class HelpFragment extends Fragment {
+
     MapView mMapView;
-
-
-
-    private HelpViewModel mViewModel;
-
-    public static HelpFragment newInstance() {
-        return new HelpFragment();
-    }
+    private GoogleMap googleMap;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.help_fragment, container, false);
-        mViewModel = ViewModelProviders.of(this).get(HelpViewModel.class);
-        return rootView;
-    }
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
 
+        mMapView = (MapView) rootView.findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.mapView);
-        if (mapFragment !=null){
-            mapFragment.onCreate(null);
-            mapFragment.onResume();
-            mapFragment.getMapAsync(this);
+        mMapView.onResume(); // needed to get the map to display immediately
 
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap mMap) {
+                googleMap = mMap;
 
+
+                // For dropping a marker at a point on the Map
+                LatLng Humber = new LatLng(43.724330436, -79.605497578);
+                googleMap.addMarker(new MarkerOptions()
+                        .position(Humber)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.humber))
+                        .title("Welcome to Humber College"));
+
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Humber, (float) 6.0));
+                googleMap.setMinZoomPreference(2.0f);
+                googleMap.setMaxZoomPreference(30.0f);
+                googleMap.setTrafficEnabled(true);
+
+            }
+
+        });
+
+        return rootView;
     }
-
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // TODO: Use the ViewModel
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        MapsInitializer.initialize(getContext());
-
-        mMap = googleMap;
-
-        LatLng Humber = new LatLng(43.724330436, -79.605497578);
-        mMap.addMarker(new MarkerOptions()
-                .position(Humber)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.humber))
-                .title("Welcome to Humber College"));
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Humber, (float) 6.0));
-        mMap.setMinZoomPreference(2.0f);
-        mMap.setMaxZoomPreference(30.0f);
-        mMap.setTrafficEnabled(true);
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
+    }
 }
