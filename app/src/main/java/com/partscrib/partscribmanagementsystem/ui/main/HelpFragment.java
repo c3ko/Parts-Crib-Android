@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -22,27 +24,36 @@ import com.partscrib.partscribmanagementsystem.R;
 
 public class HelpFragment extends Fragment implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    GoogleMap mMap;
+    MapView mMapView;
 
-    //private HelpViewModel mViewModel;
 
-    /*public static HelpFragment newInstance() {
+
+    private HelpViewModel mViewModel;
+
+    public static HelpFragment newInstance() {
         return new HelpFragment();
     }
-    */
+
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.help_fragment, container, false);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapView);
-        mapFragment.getMapAsync(this);
-
+        mViewModel = ViewModelProviders.of(this).get(HelpViewModel.class);
         return rootView;
-        //mViewModel = ViewModelProviders.of(this).get(HelpViewModel.class);
+    }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
 
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.mapView);
+        if (mapFragment !=null){
+            mapFragment.onCreate(null);
+            mapFragment.onResume();
+            mapFragment.getMapAsync(this);
 
+        }
 
 
     }
@@ -53,8 +64,11 @@ public class HelpFragment extends Fragment implements OnMapReadyCallback {
         super.onActivityCreated(savedInstanceState);
         // TODO: Use the ViewModel
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        MapsInitializer.initialize(getContext());
+
         mMap = googleMap;
 
         LatLng Humber = new LatLng(43.724330436, -79.605497578);
