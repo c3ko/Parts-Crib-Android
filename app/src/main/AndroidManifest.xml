@@ -43,7 +43,7 @@
                 android:value="com.partscrib.partscribmanagementsystem.HomeActivity" />
             <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
-                android:value="AIzaSyDZW4pKcKRYKJ-3OfE8Hvpdx7-iG9qXTb4"/>
+                android:value="AIzaSyDZW4pKcKRYKJ3OfE8Hvpdx7iG9qXTb4"/>
         </activity>
         <activity
             android:name=".HomeActivity"
