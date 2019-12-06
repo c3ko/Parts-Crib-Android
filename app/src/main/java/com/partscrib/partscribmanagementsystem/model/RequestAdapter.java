@@ -37,15 +37,20 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
     @Override
     public void onBindViewHolder(@NonNull RequestAdapter.RequestViewHolder holder, int position) {
-
+        RequestModel request = mRequests.get(position);
+        holder.pinCode.setText(request.getPinCode());
+        holder.timeRemaining.setText(request.getRequestTimeStamp());
+        holder.numItems.setText(request.getNumItems());
+        holder.requestStatus.setText(request.getRequestStatus());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mRequests.size();
     }
+
 
     public class RequestViewHolder extends RecyclerView.ViewHolder implements View
 

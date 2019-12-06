@@ -1,6 +1,7 @@
 package com.partscrib.partscribmanagementsystem.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,12 +17,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
+import com.partscrib.partscribmanagementsystem.Login;
+import com.partscrib.partscribmanagementsystem.NewRequestActivity;
 import com.partscrib.partscribmanagementsystem.R;
 import com.google.android.gms.plus.PlusOneButton;
 import com.partscrib.partscribmanagementsystem.model.RequestAdapter;
@@ -52,12 +57,18 @@ public class RequestsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private PlusOneButton mPlusOneButton;
 
     private OnFragmentInteractionListener mListener;
 
+    public Button newRequestButton;
+    public String user;
+
     public RequestsFragment() {
         // Required empty public constructor
+    }
+
+    private void findAllViews(){
+
     }
 
     /**
@@ -78,6 +89,8 @@ public class RequestsFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,16 +103,35 @@ public class RequestsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_requests, container, false);
+
         final FragmentActivity c = getActivity();
+
+        newRequestButton = (Button) view.findViewById(R.id.new_request_button);
+        newRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent newRequestIntent = new Intent(getActivity(), NewRequestActivity.class);
+                //newRequestIntent.putExtra(USER_NAME_MESSAGE, user);
+
+                startActivity(newRequestIntent);
+
+
+            }
+        });
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.requests_recycler_view);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(c);
 
         recyclerView.setLayoutManager(layoutManager);
 
-        String user = getActivity().getIntent().getStringExtra(USER_NAME_MESSAGE);
+        user = getActivity().getIntent().getStringExtra(USER_NAME_MESSAGE);
+        
 
         final List<RequestModel> requestList = new ArrayList<>();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("userdata/" + user + "");
@@ -140,6 +172,8 @@ public class RequestsFragment extends Fragment {
         return view;
     }
 
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -147,12 +181,7 @@ public class RequestsFragment extends Fragment {
         // Refresh the state of the +1 button each time the activity receives focus.
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
     /*
     @Override
     public void onAttach(Context context) {

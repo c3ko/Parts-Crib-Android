@@ -84,7 +84,8 @@ public class PartsActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         // Pass the data list to the adapter
-        //mAdapter = new PartAdapter(PartModel.);
+        
+        //mAdapter = new PartAdapter();
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
@@ -98,10 +99,11 @@ public class PartsActivity extends AppCompatActivity {
 
     private void getDB(){
         db = FirebaseDatabase.getInstance();
-        FirebaseAuth  mAuth = FirebaseAuth.getInstance();
+
         String path = "parts/";
         dbRef = db.getReference(path);
     }
+
 
     public void getAllParts(){
         dbRef.addChildEventListener(new ChildEventListener() {
