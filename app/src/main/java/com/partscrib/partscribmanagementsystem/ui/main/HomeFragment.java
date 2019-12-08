@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         findAllViews(view);
 
 
-        mBulletinDatabaseRef = FirebaseDatabase.getInstance().getReference("newsBulletin");
+        mBulletinDatabaseRef = FirebaseDatabase.getInstance().getReference("newsBulletin/bulletin");
         mRequestDatabaseRef = FirebaseDatabase.getInstance().getReference("requests");
 
         final List<BulletinModel> bulletinList = new ArrayList<>();
