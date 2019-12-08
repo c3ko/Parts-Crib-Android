@@ -4,15 +4,28 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.partscrib.partscribmanagementsystem.PartsActivity;
 import com.partscrib.partscribmanagementsystem.R;
+import com.partscrib.partscribmanagementsystem.model.BulletinAdapter;
+import com.partscrib.partscribmanagementsystem.model.BulletinModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment with a Google +1 button.
@@ -35,8 +48,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    private Button partsListButton;
+    private ListView bulletinListView;
+    private ListView currentRequestListView;
+
     private OnFragmentInteractionListener mListener;
+
+    private DatabaseReference mRequestDatabaseRef, mBulletinDatabaseRef;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -70,16 +87,83 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public void findAllViews(){
-        //partsListButton = (Button) getActivity().findViewById(R.id.parts_list_button);
+    public void findAllViews(View v){
+        bulletinListView = (ListView) v.findViewById(R.id.bulletin_listview);
+        currentRequestListView = (ListView) v.findViewById(R.id.current_request_listview);
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //Find the +1 button
+        //Find the views
+        findAllViews(view);
+
+
+        mBulletinDatabaseRef = FirebaseDatabase.getInstance().getReference("newsBulletin");
+        mRequestDatabaseRef = FirebaseDatabase.getInstance().getReference("requests");
+
+        final List<BulletinModel> bulletinList = new ArrayList<>();
+
+        mBulletinDatabaseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                BulletinModel bulletin = dataSnapshot.getValue(BulletinModel.class);
+                bulletinList.add(bulletin);
+                BulletinAdapter bulletinAdapter = new BulletinAdapter(getContext(), R.id.bulletin_listview, bulletinList);
+                bulletinListView.setAdapter(bulletinAdapter);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mRequestDatabaseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         return view;
     }
@@ -118,10 +202,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == partsListButton.getId()){
-            Intent intent = new Intent(getActivity(), PartsActivity.class);
-            startActivity(intent);
-        }
+
     }
 
     /**
