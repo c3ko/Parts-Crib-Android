@@ -70,6 +70,7 @@ public class PartsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parts);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findAllViews();
         db = FirebaseDatabase.getInstance();
@@ -80,12 +81,50 @@ public class PartsActivity extends AppCompatActivity {
         category = getIntent().getStringExtra(CATEGORY_MESSAGE);
 
         expandableListView = (ExpandableListView) findViewById(R.id.partsExpandableListView);
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Expanded.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                Log.d("ExpandableOnCLick", "Clicked on item");
+                Toast.makeText(
+                        getApplicationContext(),
+                        expandableListTitle.get(groupPosition)
+                                + " -> "
+                                + expandableListDetail.get(
+                                expandableListTitle.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT
+                ).show();
+                return false;
+            }
+        });
 
         getAllParts();
 
         ViewGroup quantityLinearLayoutView = findViewById(R.id.quantity_checkbox);
 
+        /*
         while (quantityMinusButton != null && quantityPlusButton != null){
             quantityMinusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,7 +147,8 @@ public class PartsActivity extends AppCompatActivity {
                 }
             });
 
-        }
+        };
+         */
 
     };
 
@@ -121,6 +161,7 @@ public class PartsActivity extends AppCompatActivity {
 
         extra.putSerializable("partsRequestList", "");
         returnRequest.putExtra("","");
+        finish();
     }
 
 
@@ -167,43 +208,7 @@ public class PartsActivity extends AppCompatActivity {
                 expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
                 expandableListAdapter = new PartExpandableListAdapter(PartsActivity.this, expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
-                expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
-                    @Override
-                    public void onGroupExpand(int groupPosition) {
-                        Toast.makeText(getApplicationContext(),
-                                expandableListTitle.get(groupPosition) + " List Expanded.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-                    @Override
-                    public void onGroupCollapse(int groupPosition) {
-                        Toast.makeText(getApplicationContext(),
-                                expandableListTitle.get(groupPosition) + " List Collapsed.",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-                expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                    @Override
-                    public boolean onChildClick(ExpandableListView parent, View v,
-                                                int groupPosition, int childPosition, long id) {
-                        Log.d("ExpandableOnCLick", "Clicked on item");
-                        Toast.makeText(
-                                getApplicationContext(),
-                                expandableListTitle.get(groupPosition)
-                                        + " -> "
-                                        + expandableListDetail.get(
-                                        expandableListTitle.get(groupPosition)).get(
-                                        childPosition), Toast.LENGTH_SHORT
-                        ).show();
-                        return false;
-                    }
-                });
 
             }
 

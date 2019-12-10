@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.partscrib.partscribmanagementsystem.Helper;
 import com.partscrib.partscribmanagementsystem.Login;
 import com.partscrib.partscribmanagementsystem.PartsActivity;
 import com.partscrib.partscribmanagementsystem.R;
@@ -28,6 +29,10 @@ import com.partscrib.partscribmanagementsystem.model.BulletinModel;
 import com.partscrib.partscribmanagementsystem.model.RequestAdapter;
 import com.partscrib.partscribmanagementsystem.model.RequestModel;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,6 +155,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 RequestModel request = dataSnapshot.getValue(RequestModel.class);
+                String finalDateString = Helper.convertMilliToDate(request.getRequestTimeStamp());
+
+                request.setRequestTimeStamp(finalDateString);
+
                 requestList.add(request);
                 RequestAdapter requestAdapter = new RequestAdapter(getContext(), R.id.current_request_listview, requestList);
                 currentRequestListView.setAdapter(requestAdapter);

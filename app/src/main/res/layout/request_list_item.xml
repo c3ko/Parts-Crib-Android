@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     >
 
+
     <TextView
         android:id="@+id/request_pin"
         android:layout_width="wrap_content"

@@ -2,13 +2,17 @@ package com.partscrib.partscribmanagementsystem.model;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.partscrib.partscribmanagementsystem.R;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,9 +48,37 @@ public class PartExpandableListAdapter extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_new_part_item, null);
+
         }
+
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.part_name);
+
+        final TextView quantityTextView = (TextView) convertView.findViewById(R.id.quantity_text_view);
+        Button quantityMinusButton = (Button) convertView.findViewById(R.id.quantity_minus_button);
+        Button quantityPlusButton = (Button) convertView.findViewById(R.id.quantity_plus_button);
+
+        quantityMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int counter = Integer.parseInt(quantityTextView.getText().toString());
+                counter--;
+                String counterString = counter + "";
+                quantityTextView.setText(counterString);
+                Log.d("MinusQuantity", "minus button pressed");
+            }
+        });
+
+        quantityPlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int counter = Integer.parseInt(quantityTextView.getText().toString());
+                counter++;
+                String counterString = counter + "";
+                quantityTextView.setText(counterString);
+                Log.d("PlusQuantity", "plus button pressed");
+            }
+        });
         expandedListTextView.setText(expandedListText);
         return convertView;
     }

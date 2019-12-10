@@ -5,6 +5,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,10 +15,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.partscrib.partscribmanagementsystem.model.PartModel;
 import com.partscrib.partscribmanagementsystem.model.PartRequestModel;
 import com.partscrib.partscribmanagementsystem.model.RequestModel;
+import com.partscrib.partscribmanagementsystem.model.UserDataModel;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,6 +32,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -38,8 +44,8 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
-    Timestamp requestTimeStamp, neededTimeStamp;
-
+    long requestTimeStamp, neededTimeStamp;
+    String savedDate, savedTime, savedLength;
     EditText datePickerText;
     EditText timePickerText;
     EditText timeLength;
@@ -63,6 +69,18 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
         datePickerText.setOnClickListener(this);
         timePickerText.setOnClickListener(this);
         addNewPart = findViewById(R.id.add_new_part_button);
+
+        if (savedDate  != null){
+            datePickerText.setText(savedDate);
+        }
+        if (savedTime != null){
+            timePickerText.setText(savedTime);
+        }
+
+        if (savedLength != null){
+            timeLength.setText(savedLength);
+        }
+
     }
 
 
@@ -94,8 +112,10 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
                 SimpleDateFormat sdf = new SimpleDateFormat("YYYY MM dd HH:mm");
                 try {
                     Date mDate = sdf.parse(givenDateString);
-                    neededTimeStamp = new Timestamp(mDate.getTime());
-                    requestTimeStamp = new Timestamp(System.currentTimeMillis());
+                    neededTimeStamp = new Timestamp(mDate.getTime()).getTime();
+                    requestTimeStamp = new Timestamp(mDate.getTime()).getTime();
+
+
 
 
                 } catch (ParseException e){
@@ -103,16 +123,67 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
                 }
 
 
+                database = FirebaseDatabase.getInstance();
+                final String user = getIntent().getStringExtra(Login.USER_NAME_MESSAGE);
 
+                String path = "userdata/Eku12REjXNfMsOPmShnbTB68mmc2" + "/requests";
 
+                String neededString = neededTimeStamp + "";
+                String requestString = requestTimeStamp + "";
+                PartRequestModel board = new PartRequestModel("Arduino", "1");
+                PartRequestModel resistor = new PartRequestModel("100 Ohm Resistor", "2");
+
+                List<PartRequestModel> parts = new ArrayList<>();
+                parts.add(board);
+                parts.add(resistor);
+                RequestModel request = new RequestModel("14", "3", neededString, requestString, "Submitted", parts, "43215");
+
+                myRef = database.getReference(path);
+                myRef.push().setValue(request).addOnSuccessListener(new OnSuccessListener<Void>(){
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Request", "Added new request to : " + user);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Request", "Writing to userdata failed");
+                    }
+                });
+
+                finish();
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putString("pickUpDate", datePickerText.getText().toString());
+        savedInstanceState.putString("pickUpTime", timePickerText.getText().toString());
+        savedInstanceState.putString("timeLength", timeLength.getText().toString());
+
+
+    };
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+
+        savedDate = savedInstanceState.getString("pickUpDate");
+        savedTime = savedInstanceState.getString("pickUpTime");
+        savedLength = savedInstanceState.getString("timeLength");
+
+    };
 
     @Override
     public void onClick(View v){
