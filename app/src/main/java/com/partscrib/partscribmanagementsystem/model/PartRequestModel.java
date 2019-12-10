@@ -12,6 +12,9 @@ public class PartRequestModel {
 
     private String name, quantity;
 
+    public PartRequestModel(){
+
+    }
     public PartRequestModel(String name, String quantity) {
 
         this.name = name;

@@ -1,6 +1,7 @@
 package com.partscrib.partscribmanagementsystem.model;
 
 
+import java.util.List;
 import java.util.Map;
 
 public class RequestModel {
@@ -12,10 +13,13 @@ public class RequestModel {
     private String requestStatus;
     private String pinCode;
     private String numItems;
-    private Map<String, PartRequestModel> parts;
+    private List<PartRequestModel> parts;
 
+    public RequestModel(){
+
+    }
     public RequestModel(String requestID, String numItems, String neededTimeStamp, String requestTimeStamp, String requestStatus,
-                        Map<String, PartRequestModel> parts,
+                        List<PartRequestModel> parts,
                         String pinCode) {
         this.requestID = requestID;
         this.neededTimeStamp = neededTimeStamp;
@@ -76,11 +80,11 @@ public class RequestModel {
         this.requestStatus = requestStatus;
     }
 
-    public Map<String, PartRequestModel> getParts() {
+    public List<PartRequestModel> getParts() {
         return parts;
     }
 
-    public void setParts(Map<String, PartRequestModel> parts) {
+    public void setParts(List<PartRequestModel> parts) {
         this.parts = parts;
     }
 
