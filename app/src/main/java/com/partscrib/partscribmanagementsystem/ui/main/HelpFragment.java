@@ -64,6 +64,7 @@ public class HelpFragment extends Fragment {
                 googleMap.setMaxZoomPreference(30.0f);
                 googleMap.setTrafficEnabled(true);
 
+
             }
 
         });
