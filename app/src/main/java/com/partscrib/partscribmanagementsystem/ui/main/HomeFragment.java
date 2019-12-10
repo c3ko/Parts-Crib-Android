@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.partscrib.partscribmanagementsystem.Login;
 import com.partscrib.partscribmanagementsystem.PartsActivity;
 import com.partscrib.partscribmanagementsystem.R;
 import com.partscrib.partscribmanagementsystem.model.BulletinAdapter;
 import com.partscrib.partscribmanagementsystem.model.BulletinModel;
+import com.partscrib.partscribmanagementsystem.model.RequestAdapter;
+import com.partscrib.partscribmanagementsystem.model.RequestModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,10 +108,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         findAllViews(view);
 
 
+        String user = getActivity().getIntent().getStringExtra(Login.USER_NAME_MESSAGE);
+        Log.d("HomeFragmentUser", user);
         mBulletinDatabaseRef = FirebaseDatabase.getInstance().getReference("newsBulletin/bulletin");
-        mRequestDatabaseRef = FirebaseDatabase.getInstance().getReference("requests");
+        mRequestDatabaseRef = FirebaseDatabase.getInstance().getReference("userdata/" + user + "/requests");
 
         final List<BulletinModel> bulletinList = new ArrayList<>();
+        final List<RequestModel> requestList = new ArrayList<>();
 
         mBulletinDatabaseRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -142,7 +149,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mRequestDatabaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                RequestModel request = dataSnapshot.getValue(RequestModel.class);
+                requestList.add(request);
+                RequestAdapter requestAdapter = new RequestAdapter(getContext(), R.id.current_request_listview, requestList);
+                currentRequestListView.setAdapter(requestAdapter);
             }
 
             @Override

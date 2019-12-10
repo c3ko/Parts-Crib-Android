@@ -21,6 +21,7 @@
     <string name="hint_datepicker">Expected date (MM/DD/YYYY) of loan</string>
     <string name="initial_quantity_value">0</string>
     <string name="submit_request_button_label">Submit Request</string>
+    <string name='add_part_label'>Add parts</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -38,7 +39,6 @@
     <string name="sync_pref" translatable="false">sync_pref</string>
     <string name="pref_syncconnectionType">Sync connection type</string>
     <string name="displayName">DisplayName</string>
-<<<<<<< Updated upstream
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -51,7 +51,5 @@
     <string name="title">Title</string>
     <string name="date">Date</string>
     <string name="email_address">Email Address</string>
-=======
     <string name="title_activity_part_category">PartCategory</string>
->>>>>>> Stashed changes
 </resources>

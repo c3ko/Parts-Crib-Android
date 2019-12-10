@@ -13,7 +13,7 @@
         android:id="@+id/imageView"
         android:layout_width="377dp"
         android:layout_height="101dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,7 +25,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/datePickerContainer"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/timePickerContainer"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/timeLengthContainer"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,11 +90,11 @@
         android:id="@+id/add_new_part_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        android:text="@string/submit_request_button_label"
+        android:layout_marginTop="10dp"
+        android:text="@string/add_part_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeLengthContainer"
         app:layout_constraintVertical_bias="0.0" />
