@@ -1,66 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.HelpFragment">
 
-    <TextView
-        android:id="@+id/quest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/where_are_we_located"
-        android:textColor="#F00"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.777"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.074" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="81dp"
-        android:layout_height="74dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/map"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
+        <com.google.android.gms.maps.MapView
+
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:elevation="1dp"/>
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/outstanding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/outstanding_items_to_be_returned"
-        android:textColor="#F00"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.701" />
+        android:textSize="20dp"
+        android:elevation="2dp"/>
 
-
-    <com.google.android.gms.maps.MapView
-
-        android:id="@+id/mapView"
-        android:layout_width="333dp"
-        android:layout_height="289dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.37"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28"
-        android:paddingTop="@android:dimen/app_icon_size"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 

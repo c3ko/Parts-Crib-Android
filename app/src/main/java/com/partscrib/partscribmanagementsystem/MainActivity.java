@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         //tabLayout
+        /*
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
                         .setAction("Action", null).show();
             }
         });
+        */
 
 
     }

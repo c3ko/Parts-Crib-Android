@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_xml"
@@ -18,7 +19,8 @@
         app:srcCompat="@drawable/ic_gold_medal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <EditText
         android:id="@+id/email"
@@ -57,7 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/login"
         android:layout_width="170dp"
         android:layout_height="50dp"
@@ -68,7 +70,21 @@
         android:textColor="@android:color/white"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password" />
+        app:layout_constraintTop_toBottomOf="@+id/login_password"
+        />
+
+<!--    <Button-->
+<!--        android:id="@+id/login"-->
+<!--        android:layout_width="170dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:text="@string/login"-->
+<!--        android:onClick="onLogin"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textSize="25sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/login_password" />-->
 
     <TextView
         android:id="@+id/signup_text"
@@ -102,5 +118,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_text"
         android:onClick="startPasswordRecovery"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
