@@ -1,4 +1,4 @@
-package com.partscrib.partscribmanagementsystem;
+package com.partscrib.partscribmanagementsystem.model;
 
 import com.partscrib.partscribmanagementsystem.model.PartModel;
 
@@ -7,20 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListPartData {
-    public static String[] categories = {"Resistor", "Capacitor", "Power Cable", "Board"};
-    private List<PartModel> partsList;
-    private HashMap<String, List<String>> expandableListDetail ;
-    public ExpandableListPartData(){
-        this.expandableListDetail = new HashMap<String, List<String>>();
+    public static String[] categories = {"Resistor", "Capacitor", "Power Cable", "Board", "LED"};
 
-    }
-    public HashMap<String, List<String>> ExpandableListPartData(List<PartModel> parts){
-        this.partsList = parts;
-        //TODO: fetch categories from
-        this.expandableListDetail = new HashMap<String, List<String>>();
+    public static HashMap<String, List<String>> getData(List<PartModel> parts){
+
+        HashMap<String, List<String>> expandableListDetail = new HashMap<>();
 
         for (String category: categories){
-            List<String> currentCategory = new ArrayList<String>();
+            List<String> currentCategory = new ArrayList<>();
 
             for (PartModel part: parts){
                 if (part.getCategory().equals(category)){
@@ -30,10 +24,7 @@ public class ExpandableListPartData {
 
             expandableListDetail.put(category, currentCategory);
         }
-
         return expandableListDetail;
-
-
     }
 
 }

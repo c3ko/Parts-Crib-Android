@@ -10,31 +10,20 @@ public class PartRequestModel {
 
 
 
-    private String requestID, partID, quantity, returnStatus;
+    private String name, quantity;
 
-    public PartRequestModel(String requestID, String partID, String quantity, String returnStatus) {
-        this.requestID = requestID;
-        this.partID = partID;
+    public PartRequestModel(String name, String quantity) {
+
+        this.name = name;
         this.quantity = quantity;
-        this.returnStatus = returnStatus;
     }
 
-
-
-    public String getRequestID() {
-        return requestID;
+    public String getName(){
+        return name;
     }
 
-    public void setRequestID(String requestID) {
-        this.requestID = requestID;
-    }
-
-    public String getPartID() {
-        return partID;
-    }
-
-    public void setPartID(String partID) {
-        this.partID = partID;
+    public void setName(String name){
+        this.name = name;
     }
 
     public String getQuantity() {
@@ -45,13 +34,6 @@ public class PartRequestModel {
         this.quantity = quantity;
     }
 
-    public String getReturnStatus() {
-        return returnStatus;
-    }
-
-    public void setReturnStatus(String returnStatus) {
-        this.returnStatus = returnStatus;
-    }
 
 
 

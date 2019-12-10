@@ -37,12 +37,15 @@ public class RequestAdapter extends ArrayAdapter {
         }
 
 
-        TextView requestPickUpTime = (TextView) convertView.findViewById(R.id.requ);
-        TextView date = (TextView) convertView.findViewById(R.id.Request_date);
-        TextView message = (TextView) convertView.findViewById(R.id.Request_message);
+        TextView dueTimeText = (TextView) convertView.findViewById(R.id.request_due_time);
+        TextView statusText = (TextView) convertView.findViewById(R.id.request_status);
+        TextView pinText = (TextView) convertView.findViewById(R.id.request_pin);
 
         RequestModel item = mDataItems.get(position);
 
+        dueTimeText.setText(item.getNeededTimeStamp());
+        statusText.setText(item.getRequestStatus());
+        pinText.setText(item.getPinCode());
 
         return convertView;
     }

@@ -8,9 +8,9 @@ public class UserDataModel {
     String email;
     String firstName;
     String studentNumber;
-    Map<String, String> requests;
+    Map<String, RequestModel> requests;
 
-    public UserDataModel(String id, String email, String firstName, String studentNumber, Map<String, String> requests) {
+    public UserDataModel(String id, String email, String firstName, String studentNumber, Map<String, RequestModel> requests) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -51,11 +51,11 @@ public class UserDataModel {
         this.studentNumber = studentNumber;
     }
 
-    public Map<String, String> getRequests() {
+    public Map<String, RequestModel> getRequests() {
         return requests;
     }
 
-    public void setRequests(Map<String, String> requests) {
+    public void setRequests(Map<String, RequestModel> requests) {
         this.requests = requests;
     }
 

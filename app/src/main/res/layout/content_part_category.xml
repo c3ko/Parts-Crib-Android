@@ -8,4 +8,13 @@
     tools:context=".PartCategory"
     tools:showIn="@layout/activity_part_category">
 
+
+    <ListView
+        android:id="@+id/parts_category_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dip"
+        android:background="#B29090" >
+    </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

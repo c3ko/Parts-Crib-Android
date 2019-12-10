@@ -165,8 +165,8 @@ public class RequestsFragment extends Fragment {
             }
         });
 
-        RequestAdapter mAdapter = new RequestAdapter(requestList);
-        recyclerView.setAdapter(mAdapter);
+        //RequestAdapter mAdapter = new RequestAdapter(requestList);
+        //recyclerView.setAdapter(mAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;

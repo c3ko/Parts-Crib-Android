@@ -1,17 +1,21 @@
 package com.partscrib.partscribmanagementsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.partscrib.partscribmanagementsystem.model.BulletinAdapter;
+import com.partscrib.partscribmanagementsystem.model.BulletinModel;
+import com.partscrib.partscribmanagementsystem.model.ExpandableListPartData;
 import com.partscrib.partscribmanagementsystem.model.PartAdapter;
+import com.partscrib.partscribmanagementsystem.model.PartExpandableListAdapter;
 import com.partscrib.partscribmanagementsystem.model.PartModel;
 
 import androidx.annotation.NonNull;
@@ -23,108 +27,192 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static com.partscrib.partscribmanagementsystem.PartCategory.CATEGORY_MESSAGE;
 
 public class PartsActivity extends AppCompatActivity {
 
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
-    private RecyclerView recyclerView;
-    PartModel part;
-    PartAdapter mAdapter;
-    private TextView partID;
-    private TextView partName;
-    private TextView partCategory;
-    private TextView inPartsKit;
-    private RecyclerView.LayoutManager layoutManager;
+    ExpandableListView expandableListView;
+    ExpandableListAdapter expandableListAdapter;
+    List<String> expandableListTitle;
+    HashMap<String, List<String>> expandableListDetail;
 
+    Button quantityPlusButton, quantityMinusButton;
+
+
+
+    final List<PartModel> partList = new ArrayList<>();
+
+
+    private TextView partNameText;
+    private TextView partCountText;
+    private String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+        //setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parts);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         findAllViews();
-        getDB();
-        getAllParts();
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    };
-
-    private void processDataAdapter(){
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
-/*
-       TODO 3: Obtain a handle to the object,
-               connect it to a layout manager,
-               and attach an adapter for the data to be displayed.
-*/
-
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        // Pass the data list to the adapter
-        
-        //mAdapter = new PartAdapter();
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(mAdapter);
-    }
-    private void findAllViews(){
-        partID = findViewById(R.id.part_id);
-        partName = findViewById(R.id.part_name);
-        partCategory = findViewById(R.id.part_category);
-        inPartsKit = findViewById(R.id.in_part_kit);
-    }
-
-    private void getDB(){
         db = FirebaseDatabase.getInstance();
 
         String path = "parts/";
         dbRef = db.getReference(path);
+
+        category = getIntent().getStringExtra(CATEGORY_MESSAGE);
+
+        expandableListView = (ExpandableListView) findViewById(R.id.partsExpandableListView);
+
+
+        getAllParts();
+
+        ViewGroup quantityLinearLayoutView = findViewById(R.id.quantity_checkbox);
+
+        while (quantityMinusButton != null && quantityPlusButton != null){
+            quantityMinusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TextView quantityText = findViewById(R.id.quantity_text_view);
+                    int counter = Integer.parseInt(quantityText.getText().toString());
+                    counter--;
+                    quantityText.setText(counter);
+                    Log.d("MinusQuantity", "minus button pressed");
+                }
+            });
+            quantityPlusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TextView quantityText = findViewById(R.id.quantity_text_view);
+                    int counter = Integer.parseInt(quantityText.getText().toString());
+                    counter++;
+                    quantityText.setText(counter);
+
+                }
+            });
+
+        }
+
+    };
+
+
+    @Override
+    public void onBackPressed(){
+        Intent returnRequest = new Intent();
+
+        Bundle extra = new Bundle();
+
+        extra.putSerializable("partsRequestList", "");
+        returnRequest.putExtra("","");
     }
 
 
+    private void findAllViews() {
+        partNameText = findViewById(R.id.part_name);
+
+
+        partCountText = findViewById(R.id.quantity_text_view);
+
+        quantityPlusButton = findViewById(R.id.quantity_plus_button);
+        quantityMinusButton = findViewById(R.id.quantity_minus_button);
+
+
+
+    };
+
+    public void incrementPartCount(View v){
+        int currentCount = Integer.parseInt(partCountText.getText().toString());
+        currentCount++;
+        partCountText.setText(currentCount);
+    }
+
+    public void decrementPartCount(View v){
+
+        int currentCount = Integer.parseInt(partCountText.getText().toString());
+        currentCount--;
+        partCountText.setText(currentCount);
+    }
+
+
+
+
     public void getAllParts(){
+
+
         dbRef.addChildEventListener(new ChildEventListener() {
+
+
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                PartModel p = dataSnapshot.getValue(PartModel.class);
-                partName.setText("Part ID: " + p.getId());
-                partName.setText("Part Name: " + p.getName());
-                partName.setText("Part Category: " + p.getCategory());
+                PartModel newPart = dataSnapshot.getValue(PartModel.class);
+                partList.add(newPart);
+                expandableListDetail = ExpandableListPartData.getData(partList);
+                expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+                expandableListAdapter = new PartExpandableListAdapter(PartsActivity.this, expandableListTitle, expandableListDetail);
+                expandableListView.setAdapter(expandableListAdapter);
+                expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
-                partName.setText("In Parts Kit: " + p.getInPartsKit());
+                    @Override
+                    public void onGroupExpand(int groupPosition) {
+                        Toast.makeText(getApplicationContext(),
+                                expandableListTitle.get(groupPosition) + " List Expanded.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+                    @Override
+                    public void onGroupCollapse(int groupPosition) {
+                        Toast.makeText(getApplicationContext(),
+                                expandableListTitle.get(groupPosition) + " List Collapsed.",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v,
+                                                int groupPosition, int childPosition, long id) {
+                        Log.d("ExpandableOnCLick", "Clicked on item");
+                        Toast.makeText(
+                                getApplicationContext(),
+                                expandableListTitle.get(groupPosition)
+                                        + " -> "
+                                        + expandableListDetail.get(
+                                        expandableListTitle.get(groupPosition)).get(
+                                        childPosition), Toast.LENGTH_SHORT
+                        ).show();
+                        return false;
+                    }
+                });
+
             }
+
+
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                PartModel p = dataSnapshot.getValue(PartModel.class);
-                partName.setText("Part ID: " + p.getId());
-                partName.setText("Part Name: " + p.getName());
-                partName.setText("Part Category: " + p.getCategory());
 
-                partName.setText("In Parts Kit: " + p.getInPartsKit());
+
             }
 
             @Override
@@ -145,28 +233,7 @@ public class PartsActivity extends AppCompatActivity {
 
         });
 
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<PartModel> arrayList = new ArrayList<PartModel>();
-                if (dataSnapshot != null && dataSnapshot.getValue() != null){
-                    for (DataSnapshot a: dataSnapshot.getChildren()){
-                        PartModel newPart = new PartModel();
-                        newPart.setId(a.getValue(PartModel.class).getId());
-                        newPart.setName(a.getValue(PartModel.class).getName());
-                        newPart.setCategory(a.getValue(PartModel.class).getCategory());
-                        newPart.setInPartsKit(a.getValue(PartModel.class).getInPartsKit());
 
-                        arrayList.add(newPart);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
 
