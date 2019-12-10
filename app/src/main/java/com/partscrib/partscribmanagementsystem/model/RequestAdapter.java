@@ -1,77 +1,50 @@
 package com.partscrib.partscribmanagementsystem.model;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.Nullable;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.partscrib.partscribmanagementsystem.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-import java.util.Map;
 
-public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
+public class RequestAdapter extends ArrayAdapter {
 
-    private List<RequestModel> mRequests;
 
-    public TextView textview;
+    List<RequestModel> mDataItems;
+    LayoutInflater mInflater;
 
-    public RequestAdapter(List<RequestModel> requests){
-        this.mRequests = requests;
+    public RequestAdapter(@NonNull Context context, int resource,  @NonNull List objects){
+        super(context, resource, objects);
+        mDataItems = objects;
+        mInflater = LayoutInflater.from(context);
+
     }
+
 
     @NonNull
     @Override
-    public RequestAdapter.RequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v =  LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.request_list_item, parent, false);
-        return new RequestViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RequestAdapter.RequestViewHolder holder, int position) {
-        RequestModel request = mRequests.get(position);
-        holder.pinCode.setText(request.getPinCode());
-        holder.timeRemaining.setText(request.getRequestTimeStamp());
-        holder.numItems.setText(request.getNumItems());
-        holder.requestStatus.setText(request.getRequestStatus());
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return mRequests.size();
-    }
-
-
-    public class RequestViewHolder extends RecyclerView.ViewHolder implements View
-
-            .OnClickListener {
-        public TextView pinCode;
-        public TextView timeRemaining;
-        public TextView numItems;
-        public TextView requestStatus;
-
-        public RequestViewHolder(View itemView){
-            super(itemView);
-            timeRemaining = (TextView) itemView.findViewById(R.id.request_due_time);
-            numItems = (TextView) itemView.findViewById(R.id.request_num_items);
-            requestStatus= (TextView) itemView.findViewById(R.id.request_status);
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.request_list_item, parent, false);
 
         }
 
-        @Override
-        public void onClick(View view) {
 
-        }
+        TextView requestPickUpTime = (TextView) convertView.findViewById(R.id.requ);
+        TextView date = (TextView) convertView.findViewById(R.id.Request_date);
+        TextView message = (TextView) convertView.findViewById(R.id.Request_message);
+
+        RequestModel item = mDataItems.get(position);
+
+
+        return convertView;
     }
-
 }
+
