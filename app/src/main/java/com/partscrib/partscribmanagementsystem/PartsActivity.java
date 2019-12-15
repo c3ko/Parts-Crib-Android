@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -55,8 +56,6 @@ public class PartsActivity extends AppCompatActivity {
     HashMap<String, List<String>> expandableListDetail;
 
     Button quantityPlusButton, quantityMinusButton;
-
-
 
     final List<PartModel> partList = new ArrayList<>();
 
@@ -129,8 +128,7 @@ public class PartsActivity extends AppCompatActivity {
     };
 
 
-    @Override
-    public void onBackPressed(){
+    public void sendPartsInfoBack(){
         Intent returnRequest = new Intent();
 
 
@@ -139,13 +137,32 @@ public class PartsActivity extends AppCompatActivity {
         returnRequest.putStringArrayListExtra("partsRequestList", namesList);
         setResult(NewRequestActivity.RESULT_OK, returnRequest);
         Log.d("Back Pressed", "Picked parts and returning to NewRequest Activity");
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+            switch(item.getItemId()){
+                case android.R.id.home:
+                    sendPartsInfoBack();
+                    finish();
+                    return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        sendPartsInfoBack();
         finish();
     }
 
 
     private void findAllViews() {
         partNameText = findViewById(R.id.part_name);
-
 
     };
 
