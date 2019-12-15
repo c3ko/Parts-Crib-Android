@@ -38,6 +38,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,7 @@ public class PartsActivity extends AppCompatActivity {
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
     ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
+    PartExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
 
@@ -81,6 +82,7 @@ public class PartsActivity extends AppCompatActivity {
         category = getIntent().getStringExtra(CATEGORY_MESSAGE);
 
         expandableListView = (ExpandableListView) findViewById(R.id.partsExpandableListView);
+
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
@@ -120,35 +122,9 @@ public class PartsActivity extends AppCompatActivity {
             }
         });
 
+
         getAllParts();
 
-        ViewGroup quantityLinearLayoutView = findViewById(R.id.quantity_checkbox);
-
-        /*
-        while (quantityMinusButton != null && quantityPlusButton != null){
-            quantityMinusButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView quantityText = findViewById(R.id.quantity_text_view);
-                    int counter = Integer.parseInt(quantityText.getText().toString());
-                    counter--;
-                    quantityText.setText(counter);
-                    Log.d("MinusQuantity", "minus button pressed");
-                }
-            });
-            quantityPlusButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView quantityText = findViewById(R.id.quantity_text_view);
-                    int counter = Integer.parseInt(quantityText.getText().toString());
-                    counter++;
-                    quantityText.setText(counter);
-
-                }
-            });
-
-        };
-         */
 
     };
 
@@ -157,10 +133,12 @@ public class PartsActivity extends AppCompatActivity {
     public void onBackPressed(){
         Intent returnRequest = new Intent();
 
-        Bundle extra = new Bundle();
 
-        extra.putSerializable("partsRequestList", "");
-        returnRequest.putExtra("","");
+
+        ArrayList<String> namesList = new ArrayList<String>(expandableListAdapter.getSelectedItemNames());
+        returnRequest.putStringArrayListExtra("partsRequestList", namesList);
+        setResult(NewRequestActivity.RESULT_OK, returnRequest);
+        Log.d("Back Pressed", "Picked parts and returning to NewRequest Activity");
         finish();
     }
 
@@ -169,27 +147,7 @@ public class PartsActivity extends AppCompatActivity {
         partNameText = findViewById(R.id.part_name);
 
 
-        partCountText = findViewById(R.id.quantity_text_view);
-
-        quantityPlusButton = findViewById(R.id.quantity_plus_button);
-        quantityMinusButton = findViewById(R.id.quantity_minus_button);
-
-
-
     };
-
-    public void incrementPartCount(View v){
-        int currentCount = Integer.parseInt(partCountText.getText().toString());
-        currentCount++;
-        partCountText.setText(currentCount);
-    }
-
-    public void decrementPartCount(View v){
-
-        int currentCount = Integer.parseInt(partCountText.getText().toString());
-        currentCount--;
-        partCountText.setText(currentCount);
-    }
 
 
 

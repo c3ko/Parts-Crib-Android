@@ -18,9 +18,11 @@ public class PartAdapter  extends ArrayAdapter<PartModel> {
 
     List<PartModel> mDataItems;
     LayoutInflater mInflater;
+    List<String> namesList;
 
-    public PartAdapter(@NonNull Context context, int resource, @NonNull List<PartModel> objects) {
+    public PartAdapter(@NonNull Context context, int resource, @NonNull List<PartModel> objects, List<String> namesList) {
         super(context, resource, objects);
+        this.namesList = namesList;
     }
 
 
@@ -38,9 +40,12 @@ public class PartAdapter  extends ArrayAdapter<PartModel> {
 
         PartModel item = mDataItems.get(position);
 
+        // Must contain name in string return of checked items in new parts activity
+        if (namesList.contains(item.getName())){
+            name.setText(item.getName());
+            quantity.setText(item.getCategory());
+        }
 
-        name.setText(item.getName());
-        quantity.setText(item.getCategory());
 
         return convertView;
     }

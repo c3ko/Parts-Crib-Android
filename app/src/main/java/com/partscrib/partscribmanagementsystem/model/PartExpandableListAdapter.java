@@ -8,18 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.partscrib.partscribmanagementsystem.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class PartExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
+    private ArrayList<String> selectedItemNames;
     private HashMap<String, List<String>> expandableListDetail;
 
     public PartExpandableListAdapter(Context context, List<String> expandableListTitle,
@@ -27,6 +31,7 @@ public class PartExpandableListAdapter extends BaseExpandableListAdapter {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+        this.selectedItemNames = new ArrayList<String>();
     }
 
     @Override
@@ -39,7 +44,6 @@ public class PartExpandableListAdapter extends BaseExpandableListAdapter {
     public long getChildId(int listPosition, int expandedListPosition) {
         return expandedListPosition;
     }
-
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -51,36 +55,36 @@ public class PartExpandableListAdapter extends BaseExpandableListAdapter {
 
         }
 
+
+
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.part_name);
 
-        final TextView quantityTextView = (TextView) convertView.findViewById(R.id.quantity_text_view);
-        Button quantityMinusButton = (Button) convertView.findViewById(R.id.quantity_minus_button);
-        Button quantityPlusButton = (Button) convertView.findViewById(R.id.quantity_plus_button);
 
-        quantityMinusButton.setOnClickListener(new View.OnClickListener() {
+        final CheckBox partCheckBox  = convertView.findViewById(R.id.partsListCheckBox);
+
+
+        partCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                int counter = Integer.parseInt(quantityTextView.getText().toString());
-                counter--;
-                String counterString = counter + "";
-                quantityTextView.setText(counterString);
-                Log.d("MinusQuantity", "minus button pressed");
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                // Already clicked
+                if (partCheckBox.isChecked()){
+                    Log.d("CheckBox", expandedListText + " was checked.");
+                    selectedItemNames.add(expandedListText);
+                } else {
+                    Log.d("CheckBox", expandedListText + " was unchecked.");
+                    selectedItemNames.remove(expandedListText);
+                }
             }
         });
 
-        quantityPlusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int counter = Integer.parseInt(quantityTextView.getText().toString());
-                counter++;
-                String counterString = counter + "";
-                quantityTextView.setText(counterString);
-                Log.d("PlusQuantity", "plus button pressed");
-            }
-        });
         expandedListTextView.setText(expandedListText);
+
         return convertView;
+    };
+
+    public List<String> getSelectedItemNames(){
+        return selectedItemNames;
     }
 
     @Override

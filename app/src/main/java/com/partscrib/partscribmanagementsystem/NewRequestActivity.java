@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.partscrib.partscribmanagementsystem.model.CartAdapter;
 import com.partscrib.partscribmanagementsystem.model.PartModel;
 import com.partscrib.partscribmanagementsystem.model.PartRequestModel;
 import com.partscrib.partscribmanagementsystem.model.RequestModel;
@@ -26,6 +27,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.sql.Timestamp;
@@ -49,21 +52,30 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
     EditText datePickerText;
     EditText timePickerText;
     EditText timeLength;
+    TextView partCountText;
+
     FloatingActionButton submitRequestButton;
-    Button addNewPart;
+    Button addNewPart, quantityPlusButton, quantityMinusButton;
 
     int year, month, day, hour, minute;
 
-    RequestModel requestData;
-
-    List<PartRequestModel> requestedParts;
 
 
+    ListView cartListView;
+    CartAdapter cartAdapter;
 
     private void findAllViews(){
+        cartListView = (ListView) findViewById(R.id.cart_listview);
         datePickerText = (EditText) findViewById(R.id.datePicker);
         timePickerText = (EditText) findViewById(R.id.timePicker);
         timeLength = (EditText) findViewById(R.id.timeLength);
+        partCountText = findViewById(R.id.quantity_text_view);
+
+        quantityPlusButton = findViewById(R.id.quantity_plus_button);
+        quantityMinusButton = findViewById(R.id.quantity_minus_button);
+        submitRequestButton = findViewById(R.id.submit_new_request_button);
+
+
  //       submitButton = (Button) findViewById(R.id.submit_new_request_button);
 
         datePickerText.setOnClickListener(this);
@@ -83,7 +95,21 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == PICK_PART_REQUEST){
+            if (resultCode == RESULT_OK){
+
+                List<String> partsRequestList= data.getStringArrayListExtra("partsRequestList");
+                Log.d("pickPartResult", "There are " + partsRequestList.size() + " items in cart");
+                cartAdapter = new CartAdapter(this, R.id.cart_listview, partsRequestList);
+
+                cartListView.setAdapter(cartAdapter);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +128,8 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-        submitRequestButton = findViewById(R.id.submit_new_request_button);
+
+
         submitRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
