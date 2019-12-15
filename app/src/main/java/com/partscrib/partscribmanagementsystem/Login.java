@@ -36,6 +36,8 @@ public class Login extends AppCompatActivity {
 
     public void onLogin(View view){
 
+
+
         mAuth = FirebaseAuth.getInstance();
 
         final Intent intent = new Intent(this, MainActivity.class);
@@ -45,7 +47,22 @@ public class Login extends AppCompatActivity {
         passwordField = (EditText) findViewById(R.id.login_password);
         String password = passwordField.getText().toString();
 
+        if (email.length() == 0 || password.length() == 0){
+            CharSequence text = "Email & Password can't be empty";
+            int duration = Toast.LENGTH_SHORT;
 
+            Toast toast = Toast.makeText(this, text, duration);
+            toast.show();
+            return;
+        } else if (!email.contains("@humbermail.ca") || !email.contains("@humber.ca")){
+            CharSequence text = "Must be @humber.ca or @humbermail.ca email";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(this, text, duration);
+            toast.show();
+            return;
+
+        }
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
