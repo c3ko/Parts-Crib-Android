@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity {
             Toast toast = Toast.makeText(this, text, duration);
             toast.show();
             return;
-        } else if (!email.contains("@humbermail.ca") || !email.contains("@humber.ca")){
+        } else if (!email.contains("@humbermail.ca") && !email.contains("@humber.ca")){
             CharSequence text = "Must be @humber.ca or @humbermail.ca email";
             int duration = Toast.LENGTH_SHORT;
 
