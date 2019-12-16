@@ -50,7 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.partscrib.partscribmanagementsystem.HomeActivity" />
+                android:value="com.partscrib.partscribmanagementsystem.MainActivity" />
 
 
         </activity>

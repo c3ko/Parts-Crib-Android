@@ -63,7 +63,12 @@ public class PartExpandableListAdapter extends BaseExpandableListAdapter {
 
         final CheckBox partCheckBox  = convertView.findViewById(R.id.partsListCheckBox);
 
+        for (String currentSelectedName: selectedItemNames){
+            if (expandedListText.equals(currentSelectedName)){
+                partCheckBox.setChecked(true);
+            }
 
+        }
         partCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -85,6 +90,10 @@ public class PartExpandableListAdapter extends BaseExpandableListAdapter {
 
     public List<String> getSelectedItemNames(){
         return selectedItemNames;
+    }
+
+    public void setSelectedItemNames(ArrayList<String> selectedItemNames){
+        this.selectedItemNames = selectedItemNames;
     }
 
     @Override

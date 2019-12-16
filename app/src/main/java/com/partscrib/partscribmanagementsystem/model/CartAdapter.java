@@ -21,7 +21,7 @@ public class CartAdapter extends ArrayAdapter {
 
     List<String> mDataItems;
     LayoutInflater mInflater;
-    List<String> namesList;
+    List<PartRequestModel> partsList;
 
     public CartAdapter(@NonNull Context context, int resource, @NonNull List objects) {
         super(context, resource, objects);
@@ -51,6 +51,8 @@ public class CartAdapter extends ArrayAdapter {
                 String counterString = counter + "";
                 quantityTextView.setText(counterString);
                 Log.d("MinusQuantity", "minus button pressed");
+
+
             }
         });
 
@@ -62,6 +64,8 @@ public class CartAdapter extends ArrayAdapter {
                 String counterString = counter + "";
                 quantityTextView.setText(counterString);
                 Log.d("PlusQuantity", "plus button pressed");
+
+
             }
         });
 
@@ -75,6 +79,7 @@ public class CartAdapter extends ArrayAdapter {
         name.setText(item);
         quantity.setText("1");
 
+        //partsList.add(new PartRequestModel(item, quantityTextView.toString()));
         return convertView;
     }
 }

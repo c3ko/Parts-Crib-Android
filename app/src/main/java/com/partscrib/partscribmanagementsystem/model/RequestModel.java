@@ -8,7 +8,7 @@ public class RequestModel {
 
 
     private String requestID; // Generate this random 5 digit number
-    private String neededTimeStamp; //When is it needed
+    private String timeLength; //When is it needed
     private String requestTimeStamp; // How long it will be borrowed
     private String requestStatus;
     private String pinCode;
@@ -18,11 +18,11 @@ public class RequestModel {
     public RequestModel(){
 
     }
-    public RequestModel(String requestID, String numItems, String neededTimeStamp, String requestTimeStamp, String requestStatus,
+    public RequestModel(String requestID, String numItems, String timeLength, String requestTimeStamp, String requestStatus,
                         List<PartRequestModel> parts,
                         String pinCode) {
         this.requestID = requestID;
-        this.neededTimeStamp = neededTimeStamp;
+        this.timeLength = timeLength;
         this.requestTimeStamp = requestTimeStamp;
         this.requestStatus = requestStatus;
         this.parts = parts;
@@ -56,12 +56,12 @@ public class RequestModel {
     }
 
 
-    public String getNeededTimeStamp() {
-        return neededTimeStamp;
+    public String gettimeLength() {
+        return timeLength;
     }
 
-    public void setNeededTimeStamp(String neededTimeStamp) {
-        this.neededTimeStamp = neededTimeStamp;
+    public void settimeLength(String timeLength) {
+        this.timeLength = timeLength;
     }
 
     public String getRequestTimeStamp() {

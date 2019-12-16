@@ -116,7 +116,7 @@ public class RequestsFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent newRequestIntent = new Intent(getActivity(), NewRequestActivity.class);
-                //newRequestIntent.putExtra(USER_NAME_MESSAGE, user);
+                newRequestIntent.putExtra(USER_NAME_MESSAGE, user);
 
                 startActivity(newRequestIntent);
 

@@ -54,7 +54,7 @@ public class PartsActivity extends AppCompatActivity {
     PartExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
-
+    ArrayList namesToCheck;
     Button quantityPlusButton, quantityMinusButton;
 
     final List<PartModel> partList = new ArrayList<>();
@@ -122,6 +122,11 @@ public class PartsActivity extends AppCompatActivity {
         });
 
 
+
+        Intent intent = getIntent();
+        namesToCheck = intent.getStringArrayListExtra("reselectPartArrays");
+
+        Log.d("namesToCheckList", "Count: " + namesToCheck.size());
         getAllParts();
 
 
@@ -183,6 +188,7 @@ public class PartsActivity extends AppCompatActivity {
                 expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
                 expandableListAdapter = new PartExpandableListAdapter(PartsActivity.this, expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
+                expandableListAdapter.setSelectedItemNames(namesToCheck);
 
 
             }

@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
         String user = getActivity().getIntent().getStringExtra(Login.USER_NAME_MESSAGE);
-        Log.d("HomeFragmentUser", user);
+        //Log.d("HomeFragmentUser", user);
         mBulletinDatabaseRef = FirebaseDatabase.getInstance().getReference("newsBulletin/bulletin");
         mRequestDatabaseRef = FirebaseDatabase.getInstance().getReference("userdata/" + user + "/requests");
 
@@ -155,9 +155,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 RequestModel request = dataSnapshot.getValue(RequestModel.class);
-                String finalDateString = Helper.convertMilliToDate(request.getRequestTimeStamp());
-
-                request.setRequestTimeStamp(finalDateString);
 
                 requestList.add(request);
                 RequestAdapter requestAdapter = new RequestAdapter(getContext(), R.id.current_request_listview, requestList);

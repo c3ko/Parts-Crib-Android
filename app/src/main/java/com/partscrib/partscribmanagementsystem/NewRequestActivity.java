@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class NewRequestActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -47,6 +48,8 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
+    List<PartRequestModel> partsToSubmit;
+    ArrayList<String> partsRequestList = new ArrayList<>();
     long requestTimeStamp, neededTimeStamp;
     String savedDate, savedTime, savedLength;
     EditText datePickerText;
@@ -102,9 +105,12 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
         if (requestCode == PICK_PART_REQUEST){
             if (resultCode == RESULT_OK){
 
-                List<String> partsRequestList= data.getStringArrayListExtra("partsRequestList");
-                Log.d("pickPartResult", "There are " + partsRequestList.size() + " items in cart");
+                partsRequestList= data.getStringArrayListExtra("partsRequestList");
                 cartAdapter = new CartAdapter(this, R.id.cart_listview, partsRequestList);
+
+
+                Log.d("pickPartResult", "There are " + partsRequestList.size() + " items in cart");
+
 
                 cartListView.setAdapter(cartAdapter);
             }
@@ -119,11 +125,13 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         findAllViews();
+        cartAdapter = new CartAdapter(this, R.id.cart_listview, partsRequestList);
 
         addNewPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent partIntent = new Intent(NewRequestActivity.this, PartsActivity.class);
+                partIntent.putStringArrayListExtra("reselectPartArrays", partsRequestList);
                 startActivityForResult(partIntent, PICK_PART_REQUEST);
             }
         });
@@ -134,6 +142,7 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
+                /*
                 float hours_required = Float.parseFloat(timeLength.getText().toString());
                 String givenDateString = String.format("%d %d %d %d:%d", year, month, day, hour, minute);
                 SimpleDateFormat sdf = new SimpleDateFormat("YYYY MM dd HH:mm");
@@ -148,22 +157,36 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
                 } catch (ParseException e){
                     e.printStackTrace();
                 }
+                */
 
+                String dateTimeString = year + "/" + month + "/" + day + " " + hour + ":" + minute;
 
                 database = FirebaseDatabase.getInstance();
                 final String user = getIntent().getStringExtra(Login.USER_NAME_MESSAGE);
 
-                String path = "userdata/Eku12REjXNfMsOPmShnbTB68mmc2" + "/requests";
-
-                String neededString = neededTimeStamp + "";
-                String requestString = requestTimeStamp + "";
-                PartRequestModel board = new PartRequestModel("Arduino", "1");
-                PartRequestModel resistor = new PartRequestModel("100 Ohm Resistor", "2");
+                String path = "userdata/" + user + "/requests";
+                
 
                 List<PartRequestModel> parts = new ArrayList<>();
-                parts.add(board);
-                parts.add(resistor);
-                RequestModel request = new RequestModel("14", "3", neededString, requestString, "Submitted", parts, "43215");
+                int totalQuantity = 0;
+                TextView currentName, currentQuantity;
+                for (int i = 0; i < cartAdapter.getCount(); i++){
+                    View currentView = cartListView.getChildAt(i);
+                    currentName = currentView.findViewById(R.id.part_name);
+                    currentQuantity = currentView.findViewById(R.id.quantity_text_view);
+                    PartRequestModel currentPart = new PartRequestModel(currentName.getText().toString(), currentQuantity.getText().toString());
+                    parts.add(currentPart);
+                    totalQuantity += Integer.parseInt(currentQuantity.getText().toString());
+
+
+                }
+
+                Random r = new Random( System.currentTimeMillis() );
+                int randomPin = 10000 + r.nextInt(20000);
+
+                String timeLengthString = timeLength.getText().toString();
+                String totalQuantityString = totalQuantity + "";
+                RequestModel request = new RequestModel(randomPin + "",  totalQuantityString, timeLengthString, dateTimeString, "Submitted", parts, randomPin + "");
 
                 myRef = database.getReference(path);
                 myRef.push().setValue(request).addOnSuccessListener(new OnSuccessListener<Void>(){
