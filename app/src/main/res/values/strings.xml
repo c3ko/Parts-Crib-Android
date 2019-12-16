@@ -22,6 +22,14 @@
     <string name="initial_quantity_value">0</string>
     <string name="submit_request_button_label">Submit Request</string>
     <string name='add_part_label'>Add parts</string>
+    <string name="part_name_col_label">Name</string>
+    <string name="part_quantity_col_label">Quantity</string>
+    <string name="new_request_button">Make New Request</string>
+    <string name="historical_request_button">Historcal Requests</string>
+    <string name="new_request_info">Create new request for parts</string>
+    <string name="historical_request_info">View historical requests and analytics</string>
+
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -52,4 +60,5 @@
     <string name="date">Date</string>
     <string name="email_address">Email Address</string>
     <string name="title_activity_part_category">PartCategory</string>
+    <string name="title_activity_request_detail">RequestDetailActivity</string>
 </resources>

@@ -14,9 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
         <activity
+            android:name=".RequestDetailActivity"
+            android:label="@string/title_activity_request_detail"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.Launcher.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.partscrib.partscribmanagementsystem.HomeActivity" />
+        </activity>
+        <activity
             android:name=".PartCategory"
             android:label="@string/title_activity_part_category"
-            android:theme="@style/AppTheme.Launcher.NoActionBar"></activity>
+            android:theme="@style/AppTheme.Launcher.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -24,7 +33,7 @@
 
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.main.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -51,14 +60,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.partscrib.partscribmanagementsystem.MainActivity" />
-
-
         </activity>
         <activity
             android:name=".PartsActivity"
             android:label="@string/title_activity_parts"
             android:parentActivityName=".NewRequestActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.partscrib.partscribmanagementsystem.NewRequestActivity" />

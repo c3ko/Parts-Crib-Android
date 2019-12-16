@@ -8,31 +8,85 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
 >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/requests_recycler_view"
-        android:layout_width="371dp"
-        android:layout_height="524dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@id/new_request_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/historical_request_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/historical_request_info"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/new_request_info"
+        app:layout_constraintEnd_toStartOf="@+id/historical_request_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155" />
 
     <info.hoang8f.widget.FButton
         android:id="@+id/new_request_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="124dp"
-        android:text="Make new Request"
-        android:onClick="onLogin"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="444dp"
+        android:text="@string/new_request_button"
         android:textColor="@android:color/white"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/requests_recycler_view"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/historical_request_info"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="194dp" />
+
+    <TextView
+        android:id="@+id/new_request_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="@string/new_request_info"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toStartOf="@+id/new_request_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/historical_request_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/historical_request_button"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/new_request_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_request_button"
+        app:layout_constraintVertical_bias="0.043" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

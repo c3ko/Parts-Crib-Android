@@ -142,22 +142,6 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
-                /*
-                float hours_required = Float.parseFloat(timeLength.getText().toString());
-                String givenDateString = String.format("%d %d %d %d:%d", year, month, day, hour, minute);
-                SimpleDateFormat sdf = new SimpleDateFormat("YYYY MM dd HH:mm");
-                try {
-                    Date mDate = sdf.parse(givenDateString);
-                    neededTimeStamp = new Timestamp(mDate.getTime()).getTime();
-                    requestTimeStamp = new Timestamp(mDate.getTime()).getTime();
-
-
-
-
-                } catch (ParseException e){
-                    e.printStackTrace();
-                }
-                */
 
                 String dateTimeString = year + "/" + month + "/" + day + " " + hour + ":" + minute;
 
@@ -165,7 +149,7 @@ public class NewRequestActivity extends AppCompatActivity implements View.OnClic
                 final String user = getIntent().getStringExtra(Login.USER_NAME_MESSAGE);
 
                 String path = "userdata/" + user + "/requests";
-                
+
 
                 List<PartRequestModel> parts = new ArrayList<>();
                 int totalQuantity = 0;

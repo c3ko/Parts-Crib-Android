@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -24,6 +25,7 @@ import com.partscrib.partscribmanagementsystem.Helper;
 import com.partscrib.partscribmanagementsystem.Login;
 import com.partscrib.partscribmanagementsystem.PartsActivity;
 import com.partscrib.partscribmanagementsystem.R;
+import com.partscrib.partscribmanagementsystem.RequestDetailActivity;
 import com.partscrib.partscribmanagementsystem.model.BulletinAdapter;
 import com.partscrib.partscribmanagementsystem.model.BulletinModel;
 import com.partscrib.partscribmanagementsystem.model.RequestAdapter;
@@ -121,6 +123,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         final List<BulletinModel> bulletinList = new ArrayList<>();
         final List<RequestModel> requestList = new ArrayList<>();
 
+        currentRequestListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent detailIntent = new Intent(getActivity(),RequestDetailActivity.class);
+                detailIntent.putExtra("requestExtra", requestList.get(i));
+                startActivity(detailIntent);
+            }
+        });
         mBulletinDatabaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

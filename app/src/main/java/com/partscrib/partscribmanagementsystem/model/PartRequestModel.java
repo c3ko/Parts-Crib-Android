@@ -1,6 +1,8 @@
 package com.partscrib.partscribmanagementsystem.model;
 
-public class PartRequestModel {
+import java.io.Serializable;
+
+public class PartRequestModel implements Serializable {
 
     enum STATUS {
         READY_FOR_PICKUP,

@@ -1,10 +1,11 @@
 package com.partscrib.partscribmanagementsystem.model;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class RequestModel {
+public class RequestModel implements Serializable {
 
 
     private String requestID; // Generate this random 5 digit number
