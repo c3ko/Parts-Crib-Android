@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.partscrib.partscribmanagementsystem.model.ExpandableListPartData;
 import com.partscrib.partscribmanagementsystem.model.PartExpandableListAdapter;
 import com.partscrib.partscribmanagementsystem.model.PartModel;
@@ -53,7 +54,7 @@ public class KeypinActivity extends AppCompatActivity {
 
         dbRef = db.getReference(path);
 
-        getCurrentPin();
+
         numberKeyboard.setListener(new NumberKeyboardListener() {
             @Override
             public void onNumberClicked(int number) {
@@ -78,6 +79,9 @@ public class KeypinActivity extends AppCompatActivity {
             }
         });
 
+
+        getCurrentPin();
+
     }
 
 
@@ -93,13 +97,16 @@ public class KeypinActivity extends AppCompatActivity {
     public void getCurrentPin(){
 
 
-        dbRef.addChildEventListener(new ChildEventListener() {
 
+        dbRef.addValueEventListener(new ValueEventListener() {
 
+            /*
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 keypin = dataSnapshot.getValue(String.class);
                 textView.setText(keypin);
+
+                Log.d("CurrentPin: ", "safas");
 
             }
 
@@ -108,6 +115,8 @@ public class KeypinActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 keypin = dataSnapshot.getValue(String.class);
+                Log.d("Current Pin: ", keypin);
+
 
             }
 
@@ -119,6 +128,12 @@ public class KeypinActivity extends AppCompatActivity {
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
+            */
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                keypin = dataSnapshot.getValue(String.class);
+                textView.setText(keypin);
             }
 
             @Override
