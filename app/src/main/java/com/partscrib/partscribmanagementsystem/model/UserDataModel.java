@@ -9,13 +9,15 @@ public class UserDataModel {
     String firstName;
     String studentNumber;
     Map<String, RequestModel> requests;
+    String currentPinEntry;
 
-    public UserDataModel(String id, String email, String firstName, String studentNumber, Map<String, RequestModel> requests) {
+    public UserDataModel(String id, String email, String firstName, String studentNumber, Map<String, RequestModel> requests, String currentPinEntry) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.studentNumber = studentNumber;
         this.requests = requests;
+        this.currentPinEntry = currentPinEntry;
     }
 
     public String getId() {
@@ -57,6 +59,14 @@ public class UserDataModel {
 
     public void setRequests(Map<String, RequestModel> requests) {
         this.requests = requests;
+    }
+
+    public String getCurrentPinEntry() {
+        return currentPinEntry;
+    }
+
+    public void setCurrentPinEntry(String currentPinEntry) {
+        this.currentPinEntry = currentPinEntry;
     }
 
 

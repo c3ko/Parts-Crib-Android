@@ -97,7 +97,8 @@ public class SignUpActivity extends AppCompatActivity {
                 String.valueOf(email),
                 String.valueOf(firstName),
                 String.valueOf(studentNumber),
-                null
+                null,
+                ""
                 );
     }
     public void beginRegistration(View v){

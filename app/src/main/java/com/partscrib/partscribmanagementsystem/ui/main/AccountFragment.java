@@ -1,6 +1,7 @@
 package com.partscrib.partscribmanagementsystem.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,9 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.partscrib.partscribmanagementsystem.KeypinActivity;
 import com.partscrib.partscribmanagementsystem.R;
-import com.google.android.gms.plus.PlusOneButton;
+
+import static com.partscrib.partscribmanagementsystem.Login.USER_NAME_MESSAGE;
 
 /**
  * A fragment with a Google +1 button.
@@ -22,20 +27,32 @@ import com.google.android.gms.plus.PlusOneButton;
  * create an instance of this fragment.
  */
 public class AccountFragment extends Fragment {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     // The request code must be 0 or greater.
-    private static final int PLUS_ONE_REQUEST_CODE = 0;
     // The URL to +1.  Must be a valid URL.
-    private final String PLUS_ONE_URL = "http://developer.android.com";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private PlusOneButton mPlusOneButton;
 
     private OnFragmentInteractionListener mListener;
+
+    Button mapButton, keyPinEntryButton;
+    TextView latText, longText;
+
+
+    public void findAllViews(View v){
+        //accountHistoryButton = (Button) v.findViewById(R.id.account_history_button);
+        keyPinEntryButton = (Button) v.findViewById(R.id.keypin_button);
+        mapButton = (Button) v.findViewById(R.id.map_button);
+        latText = (TextView) v.findViewById(R.id.curr_lat);
+        longText = (TextView) v.findViewById(R.id.curr_long);
+
+
+    }
 
     public AccountFragment() {
         // Required empty public constructor
@@ -74,9 +91,35 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        //Find the +1 button
-        mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button);
+        // Inflate the layout for this fragment
 
+        //Find the views
+        findAllViews(view);
+
+        final String user = getActivity().getIntent().getStringExtra(USER_NAME_MESSAGE);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            HelpFragment helpFragment = new HelpFragment();
+            getFragmentManager().beginTransaction()
+                .replace(R.id.container, helpFragment)
+                    .addToBackStack(null)
+                    .commit();
+
+
+            }
+        });
+
+        keyPinEntryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Intent intent = new Intent(getActivity(), KeypinActivity.class);
+            intent.putExtra(USER_NAME_MESSAGE, user);
+            startActivity(intent);
+
+            }
+        });
         return view;
     }
 
@@ -84,16 +127,9 @@ public class AccountFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // Refresh the state of the +1 button each time the activity receives focus.
-        mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {

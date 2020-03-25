@@ -108,7 +108,6 @@ public class RequestsFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_requests, container, false);
 
-        final FragmentActivity c = getActivity();
 
         newRequestButton = (Button) view.findViewById(R.id.new_request_button);
         newRequestButton.setOnClickListener(new View.OnClickListener() {
@@ -140,18 +139,6 @@ public class RequestsFragment extends Fragment {
     }
 
 
-    /*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-*/
     @Override
     public void onDetach() {
         super.onDetach();
